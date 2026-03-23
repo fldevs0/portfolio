@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FLDevs - Bebedouro | Soluções Digitais & Automação</title>
+    <meta name="description" content="Transformando Eficiência em Lucro. Portfólio de Projetos Reais." />
+
+    <!-- Favicon -->
+    <!-- Corrigido: O tipo de imagem foi ajustado para 'image/png' e adicionado o 'apple-touch-icon' para compatibilidade com iOS -->
+    <link rel="icon" href="favicon.jpeg" type="image/png">
+    <link rel="apple-touch-icon" href="favicon.jpeg">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Manrope', 'sans-serif'],
+                    },
+                    colors: {
+                        metallic: {
+                            100: '#F3F4F6', 200: '#E5E7EB', 300: '#D1D5DB', 400: '#9CA3AF',
+                            500: '#6B7280', 600: '#4B5563', 700: '#374151', 800: '#1F2937', 900: '#111827',
+                        },
+                        gold: {
+                            100: '#FEF9C3', 400: '#FACC15', 500: '#EAB308', 600: '#CA8A04', 700: '#A16207', 900: '#713F12'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shimmer': 'shimmer 2.5s infinite',
+                        'shine': 'shine 14s linear infinite',
+                    },
+                    keyframes: {
+                        shimmer: {
+                            '100%': { transform: 'translateX(100%)' },
+                        },
+                        shine: {
+                            '0%': { backgroundPosition: '200% center' },
+                            '100%': { backgroundPosition: '-200% center' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Critical Theme Logic in Head to Prevent FOUC (Flash of Unstyled Content) -->
+    <script>
+        // Site configurado para iniciar sempre em Dark Mode.
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1f2937; }
+        ::-webkit-scrollbar-thumb { background: #6b7280; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+        /* Reveal Animation Classes - Refined for "Metallic/Premium" feel */
+        .reveal {
+            opacity: 0;
+            filter: blur(4px);
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+            will-change: opacity, transform, filter;
+        }
+        .reveal.active {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
+
+        /* Stagger Delays */
+        .stagger-1 { transition-delay: 150ms; }
+        .stagger-2 { transition-delay: 300ms; }
+        .stagger-3 { transition-delay: 450ms; }
+        .stagger-4 { transition-delay: 600ms; }
+
+        /* Theme Toggle Icon Animations */
+        .theme-btn-container {
+            position: relative;
+            width: 20px;
+            height: 20px;
+        }
+        .theme-icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* State: Icon is hidden (scaled down, rotated, invisible) */
+        .theme-icon-hidden {
+            opacity: 0;
+            transform: rotate(180deg) scale(0);
+        }
+        /* State: Icon is visible (normal scale, no rotation, visible) */
+        .theme-icon-visible {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        /* Quiz Animations */
+        .quiz-step { display: none; animation: fadeIn 0.5s; }
+        .quiz-step.active-step { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    </style>
+
+    <style>
+        /* FAQ Accordion Animation */
+        details > summary {
+            list-style: none; /* Remove default arrow */
+        }
+        details > summary::-webkit-details-marker {
+            display: none; /* Remove default arrow for Safari */
+        }
+        details .faq-answer {
+            overflow: hidden;
+            /* Duração aumentada para uma animação mais lenta e natural */
+            transition: max-height 0.7s ease-in-out, 
+                        padding-top 0.7s ease-in-out,
+                        padding-bottom 0.7s ease-in-out,
+                        border-top-width 0.5s ease-in-out;
+            max-height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            border-top-width: 0;
+        }
+        details[open] .faq-answer {
+            max-height: 250px; /* Ajuste se o conteúdo for maior */
+            padding-top: 1rem; /* pt-4 */
+            padding-bottom: 1rem; /* pb-4 */
+            border-top-width: 1px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-neutral-950 dark:text-gray-100 transition-colors duration-500 ease-in-out antialiased overflow-x-hidden font-sans selection:bg-gold-500/30 selection:text-gold-700 dark:selection:text-gold-300">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out bg-transparent border-b border-transparent py-4">
+        <div class="w-full px-4 md:px-8 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2 group">
+                <img src="logo.png" alt="Logo FLDevs" class="h-24 w-auto object-contain -my-8" />
+            
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#projects" class="relative text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-neutral-900 dark:hover:text-white transition-colors duration-300 after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-gold-500 after:transition-all after:duration-300 hover:after:w-full focus:outline-none focus-visible:after:w-full">Projetos</a>
+                <a href="#testimonials" class="relative text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-neutral-900 dark:hover:text-white transition-colors duration-300 after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-gold-500 after:transition-all after:duration-300 hover:after:w-full focus:outline-none focus-visible:after:w-full">Depoimentos</a>
+                <a href="#pricing" class="relative text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-neutral-900 dark:hover:text-white transition-colors duration-300 after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-gold-500 after:transition-all after:duration-300 hover:after:w-full focus:outline-none focus-visible:after:w-full">Planos</a>
+                <a href="#faq" class="relative text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-neutral-900 dark:hover:text-white transition-colors duration-300 after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-gold-500 after:transition-all after:duration-300 hover:after:w-full focus:outline-none focus-visible:after:w-full">FAQ</a>
+                <a href="#contact" class="relative text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-neutral-900 dark:hover:text-white transition-colors duration-300 after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-gold-500 after:transition-all after:duration-300 hover:after:w-full focus:outline-none focus-visible:after:w-full">Contato</a>
+                
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors duration-300 text-neutral-600 dark:text-gray-300" aria-label="Alternar Tema">
+                    <div class="theme-btn-container">
+                        <!-- Sun Icon (Visible in Dark Mode) -->
+                        <svg id="icon-sun" class="theme-icon w-5 h-5 theme-icon-visible" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <!-- Moon Icon (Visible in Light Mode) -->
+                        <svg id="icon-moon" class="theme-icon w-5 h-5 theme-icon-hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <div class="flex items-center gap-4 md:hidden">
+                <button id="theme-toggle-mobile" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors duration-300 text-neutral-600 dark:text-gray-300" aria-label="Alternar Tema Mobile">
+                    <div class="theme-btn-container">
+                        <svg id="icon-sun-mobile" class="theme-icon w-5 h-5 theme-icon-visible" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg id="icon-moon-mobile" class="theme-icon w-5 h-5 theme-icon-hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </div>
+                </button>
+                <button id="menu-toggle" class="text-neutral-900 dark:text-white" aria-label="Abrir Menu">
+                    <svg id="icon-menu" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    <svg id="icon-close" class="hidden w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white dark:bg-neutral-950 border-b border-gray-200 dark:border-neutral-800 p-6 flex-col space-y-4 shadow-lg transition-colors duration-500">
+            <a href="#projects" class="text-lg font-medium text-gray-900 dark:text-white py-2 mobile-link transition-colors duration-300">Projetos</a>
+            <a href="#testimonials" class="text-lg font-medium text-gray-900 dark:text-white py-2 mobile-link transition-colors duration-300">Depoimentos</a>
+            <a href="#pricing" class="text-lg font-medium text-gray-900 dark:text-white py-2 mobile-link transition-colors duration-300">Planos</a>
+            <a href="#faq" class="text-lg font-medium text-gray-900 dark:text-white py-2 mobile-link transition-colors duration-300">FAQ</a>
+            <a href="#contact" class="text-lg font-medium text-gray-900 dark:text-white py-2 mobile-link transition-colors duration-300">Contato</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <div class="relative flex justify-center pt-16 md:pt-20 pb-0 overflow-hidden">
+            <!-- Background FX with Parallax IDs -->
+            <div id="hero-blob-1" class="absolute top-1/4 left-1/4 w-96 h-96 bg-gold-500/10 dark:bg-gold-500/5 rounded-full blur-3xl pointer-events-none animate-pulse-slow mix-blend-screen dark:mix-blend-lighten will-change-transform transition-colors duration-700"></div>
+            <div id="hero-blob-2" class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-neutral-400/10 dark:bg-white/5 rounded-full blur-3xl pointer-events-none will-change-transform transition-colors duration-700"></div>
+
+            <section class="section-observe py-0 md:pt-0 md:pb-10 px-4 md:px-8 w-full relative z-10 flex flex-col items-center">
+                <div class="w-full text-center space-y-4 md:space-y-6">
+                    <!-- Title -->
+                    <h1 class="reveal text-5xl md:text-7xl lg:text-8xl font-display font-extrabold leading-tight tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 via-neutral-600 to-neutral-900 dark:from-white dark:via-gray-200 dark:to-white bg-[length:300%_auto] animate-shine drop-shadow-sm transition-colors duration-500">
+                        Soluções Digitais & <br />
+                        <span class="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-neutral-600 via-neutral-900 to-neutral-600 dark:from-gray-100 dark:via-gray-400 dark:to-gray-100 bg-[length:300%_auto] animate-shine pb-2 transition-colors duration-500">
+                            Automações Reais
+                            <svg class="absolute w-full h-3 -bottom-1 left-0 text-gold-500 opacity-80" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                <path d="M0 5 Q 50 6 100 5" stroke="currentColor" stroke-width="2" fill="none" />
+                            </svg>
+                        </span>
+                    </h1>
+
+                    <!-- Subtitle -->
+                    <p class="reveal stagger-1 text-lg md:text-2xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed font-light transition-colors duration-500">
+                        Transformamos processos manuais em <span class="font-semibold text-neutral-900 dark:text-white transition-colors duration-500">lucro e eficiência</span>. 
+                        Desenvolvimento de alta performance para quem busca <span class="font-semibold text-neutral-900 dark:text-white transition-colors duration-500">resultados.</span>
+                    </p>
+
+                    <!-- Buttons -->
+                    <div class="reveal stagger-2 flex flex-col sm:flex-row items-center justify-center gap-5 pt-4">
+                        <a href="#projects" class="w-full sm:w-auto">
+                            <div class="w-full relative inline-flex items-center justify-center font-display font-bold tracking-wide transition-all duration-300 rounded-lg px-8 py-3.5 focus:outline-none focus:ring-2 focus:ring-offset-2 transform active:scale-95 overflow-hidden group bg-gradient-to-br from-neutral-700 via-neutral-900 to-black dark:from-gray-100 dark:via-gray-300 dark:to-gray-100 text-white dark:text-neutral-900 shadow-xl shadow-neutral-900/20 dark:shadow-white/5 border border-white/10 dark:border-transparent hover:shadow-2xl hover:-translate-y-1 h-14 text-lg">
+                                <div class="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover:animate-shimmer"></div>
+                                <span class="relative flex items-center">Explore Nossos Projetos <svg class="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
+                            </div>
+                        </a>
+                        
+                        <a href="https://wa.me/5517999999999" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto">
+                            <div class="w-full relative inline-flex items-center justify-center font-display font-bold tracking-wide transition-all duration-300 rounded-lg px-8 py-3.5 focus:outline-none focus:ring-2 focus:ring-offset-2 transform active:scale-95 overflow-hidden group bg-transparent border-2 border-neutral-800 dark:border-gray-200 text-neutral-800 dark:text-gray-100 hover:bg-[#25D366] hover:border-[#25D366] hover:text-white dark:hover:bg-[#25D366] dark:hover:border-[#25D366] dark:hover:text-white shadow-sm hover:shadow-lg h-14 text-lg">
+                                <span class="relative flex items-center transition-all duration-300 group-hover:opacity-0 group-hover:scale-50">Fale Conosco no WhatsApp <svg class="ml-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.506-.669-.516-.173-.009-.371-.009-.57-.009-.198 0-.52.074-.792.372-.272.297-1.04 1.017-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"></path></svg></span>
+                                <span class="absolute inset-0 flex items-center justify-center opacity-0 scale-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100">
+                                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.506-.669-.516-.173-.009-.371-.009-.57-.009-.198 0-.52.074-.792.372-.272.297-1.04 1.017-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="reveal stagger-3 pt-4 flex flex-col items-center gap-2">
+                        <button id="open-quiz-modal" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gold-600 dark:hover:text-gold-500 transition-colors duration-300 underline underline-offset-4">
+                            Não sabe por onde começar? Faça um diagnóstico rápido.
+                        </button>
+                        <a href="#projects" aria-label="Rolar para baixo" class="text-gray-500 dark:text-gray-400 hover:text-gold-500 transition-colors duration-300 animate-bounce">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section-observe py-20 px-4 md:px-8 w-full relative overflow-hidden bg-gray-100/50 dark:bg-neutral-900/30 transition-colors duration-500">
+            <div class="w-full">
+                <div class="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6">
+                    <div class="max-w-2xl">
+                        <div class="reveal flex items-center gap-2 mb-2">
+                            <div class="h-0.5 w-12 bg-gold-600"></div>
+                            <span class="text-sm font-bold uppercase tracking-wider text-gold-600">Portfólio</span>
+                        </div>
+                        <h2 class="reveal stagger-1 text-4xl md:text-5xl font-display font-bold text-neutral-900 dark:text-white mb-4 transition-colors duration-500">
+                            Projetos Recentes
+                        </h2>
+                        <p class="reveal stagger-2 text-lg text-gray-600 dark:text-gray-400 transition-colors duration-500">
+                            Oficinas Mecânicas, Barbearias, Prestadores de Serviços, e muit o mais...
+                        </p>
+                    </div>
+                    <a href="#" class="reveal stagger-2 hidden md:flex items-center font-semibold text-neutral-900 dark:text-white hover:text-gold-600 transition-colors duration-300 group">
+                        Ver todos os trabalhos <svg class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+                    <!-- Project 1 -->
+                    <div data-project-id="1" class="project-card reveal group relative bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-neutral-800 transition-all duration-500 hover:shadow-2xl hover:shadow-neutral-900/10 dark:hover:shadow-white/5 hover:-translate-y-2 flex flex-col h-full cursor-pointer hover:border-gold-500/50">
+                        <div class="relative h-64 overflow-hidden bg-gray-200 dark:bg-neutral-950 transition-colors duration-500">
+                            <!-- 🔴 AQUI (CARD 1): Coloque o caminho da sua foto no 'src' abaixo (ex: src="imagens/foto-barbearia.jpg") -->
+                            <img src="barber_inicio.png" alt="Sistema de Agendamento para Barbearia" class="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110" loading="lazy" />
+                        </div>
+                        <div class="p-8 flex flex-col flex-grow relative z-10 bg-white dark:bg-neutral-900 transition-colors duration-500">
+                            <h3 class="text-2xl font-bold font-display text-neutral-900 dark:text-white mb-3 group-hover:text-gold-600 transition-colors duration-300">Sistema de Agendamento para Barbearia</h3>
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6 flex-grow transition-colors duration-500">Automatização completa da agenda. Clientes agendam sozinhos, escolhem serviços e o sistema organiza os horários, liberando o profissional para focar no que importa: o cliente.</p>
+                            <!-- Key Result -->
+                            <div class="mt-auto pt-4 border-t border-gray-100 dark:border-neutral-800/50">
+                                <div class="flex items-center gap-3">
+                                    <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                    <div>
+                                        <span class="text-xs font-bold text-green-500 uppercase tracking-wider">Resultado</span>
+                                        <p class="text-sm text-neutral-800 dark:text-gray-200 font-semibold">Eliminação das interrupções no WhatsApp e redução drástica nos furos de agenda.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div data-project-id="2" class="project-card reveal stagger-1 group relative bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-neutral-800 transition-all duration-500 hover:shadow-2xl hover:shadow-neutral-900/10 dark:hover:shadow-white/5 hover:-translate-y-2 flex flex-col h-full cursor-pointer hover:border-gold-500/50">
+                        <div class="relative h-64 overflow-hidden bg-gray-200 dark:bg-neutral-950 transition-colors duration-500">
+                            <!-- 🔴 AQUI (CARD 2): Coloque o caminho da sua foto no 'src' abaixo -->
+                            <img src="oficina_inicio.png" alt="Sistema de Gestão para Oficina Mecânica" class="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110" loading="lazy" />
+                        </div>
+                        <div class="p-8 flex flex-col flex-grow relative z-10 bg-white dark:bg-neutral-900 transition-colors duration-500">
+                            <h3 class="text-2xl font-bold font-display text-neutral-900 dark:text-white mb-3 group-hover:text-gold-600 transition-colors duration-300">Sistema de Gestão para Oficina Mecânica</h3>
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6 flex-grow transition-colors duration-500">Plataforma web para controle de Ordens de Serviço (OS), estoque e clientes. Elimina a papelada e organiza todo o fluxo de trabalho da oficina.</p>
+                            <!-- Key Result -->
+                            <div class="mt-auto pt-4 border-t border-gray-100 dark:border-neutral-800/50">
+                                <div class="flex items-center gap-3">
+                                    <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                    <div>
+                                        <span class="text-xs font-bold text-green-500 uppercase tracking-wider">Resultado</span>
+                                        <p class="text-sm text-neutral-800 dark:text-gray-200 font-semibold">Agilidade na aprovação de orçamentos e controle financeiro total.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div data-project-id="3" class="project-card reveal stagger-2 group relative bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-neutral-800 transition-all duration-500 hover:shadow-2xl hover:shadow-neutral-900/10 dark:hover:shadow-white/5 hover:-translate-y-2 flex flex-col h-full cursor-pointer hover:border-gold-500/50">
+                        <div class="relative h-64 overflow-hidden bg-gray-200 dark:bg-neutral-950 transition-colors duration-500">
+                            <!-- 🔴 AQUI (CARD 3): Coloque o caminho da sua foto no 'src' abaixo -->
+                            <img src="nail_inicio.png" alt="Agenda Inteligente para Nail Designers" class="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110" loading="lazy" />
+                        </div>
+                        <div class="p-8 flex flex-col flex-grow relative z-10 bg-white dark:bg-neutral-900 transition-colors duration-500">
+                            <h3 class="text-2xl font-bold font-display text-neutral-900 dark:text-white mb-3 group-hover:text-gold-600 transition-colors duration-300">Landing Page de Alta Conversão</h3>
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6 flex-grow transition-colors duration-500">Página de vendas que transforma seguidores do Instagram em clientes reais, com botões e conteúdos focados em fechar negócio.</p>
+                            <!-- Key Result -->
+                            <div class="mt-auto pt-4 border-t border-gray-100 dark:border-neutral-800/50">
+                                <div class="flex items-center gap-3">
+                                    <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                    <div>
+                                        <span class="text-xs font-bold text-green-500 uppercase tracking-wider">Resultado</span>
+                                        <p class="text-sm text-neutral-800 dark:text-gray-200 font-semibold">Menos tempo respondendo curiosos e mais agendamentos confirmados (com sinal pago).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="section-observe py-20 px-4 md:px-8 w-full relative overflow-hidden bg-gray-50 dark:bg-neutral-900/10 transition-colors duration-500">
+            <div class="w-full">
+                <div class="text-center mb-16">
+                    <span class="reveal text-xs font-bold uppercase tracking-widest text-gold-600 dark:text-gold-500 mb-2 block transition-colors duration-500">O Que Dizem</span>
+                    <h2 class="reveal stagger-1 text-3xl md:text-4xl font-display font-bold text-neutral-900 dark:text-white transition-colors duration-500">
+                        Resultados Comprovados
+                    </h2>
+                </div>
+
+                <div class="reveal stagger-2 relative px-2">
+                    <!-- Navigation Buttons -->
+                    <button id="prevBtn" class="flex absolute left-0 top-1/2 -translate-y-1/2 z-20 p-2 md:p-3 rounded-full bg-white dark:bg-neutral-800 shadow-lg text-neutral-900 dark:text-white hover:text-gold-600 focus:outline-none transition-all disabled:opacity-50 border border-gray-100 dark:border-neutral-700 transition-colors duration-500 backdrop-blur-sm" aria-label="Anterior">
+                        <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <button id="nextBtn" class="flex absolute right-0 top-1/2 -translate-y-1/2 z-20 p-2 md:p-3 rounded-full bg-white dark:bg-neutral-800 shadow-lg text-neutral-900 dark:text-white hover:text-gold-600 focus:outline-none transition-all disabled:opacity-50 border border-gray-100 dark:border-neutral-700 transition-colors duration-500 backdrop-blur-sm" aria-label="Próximo">
+                         <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+
+                    <!-- Carousel Track Wrapper -->
+                    <div class="overflow-hidden mx-auto py-4">
+                        <div id="slider-track" class="flex transition-transform duration-500 ease-out cursor-grab active:cursor-grabbing touch-pan-y">
+                            <!-- Items will be injected by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div id="pagination" class="flex justify-center gap-2 mt-8">
+                        <!-- Dots will be injected by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section (New) -->
+        <section id="pricing" class="section-observe py-20 px-4 md:px-8 w-full relative bg-white dark:bg-neutral-950 transition-colors duration-500">
+            <div class="w-full">
+                <div class="text-center mb-16">
+                    <span class="reveal text-xs font-bold uppercase tracking-widest text-gold-600 dark:text-gold-500 mb-2 block transition-colors duration-500">Investimento</span>
+                    <h2 class="reveal stagger-1 text-3xl md:text-4xl font-display font-bold text-neutral-900 dark:text-white transition-colors duration-500">
+                        Soluções para Cada Objetivo
+                    </h2>
+                    <p class="reveal stagger-2 text-gray-600 dark:text-gray-400 mt-4 max-w-2xl mx-auto">
+                        Seja para exibir seu trabalho, converter visitantes ou automatizar sua operação, temos o plano certo para você.
+                    </p>
+                </div>
+
+                <!-- Cards Container (Fan Effect / Truco Style) -->
+                <div class="reveal stagger-3 relative flex flex-col md:flex-row items-center justify-center gap-8 md:gap-0 pt-10 pb-10">
+                    
+                    <!-- Card 1: Portfólio (Left - Tilted Left) -->
+                    <div class="w-full max-w-[380px] md:w-[350px] shrink-0 relative flex flex-col bg-white dark:bg-neutral-900 rounded-2xl border border-gray-200 dark:border-neutral-800 p-8 shadow-lg md:transform md:-rotate-6 md:translate-y-8 md:origin-bottom-right md:z-10">
+                        <h3 class="text-xl font-bold text-neutral-900 dark:text-white mb-2">Presença Digital & Portfólio</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 h-10">Para profissionais que desejam exibir seus trabalhos e fortalecer sua autoridade.</p>
+                        <div class="mb-6">
+                            <span class="text-sm text-gray-500 dark:text-gray-400">A partir de</span>
+                            <div class="text-3xl font-bold text-neutral-900 dark:text-white">R$ 2.500<span class="text-sm font-normal text-gray-500">,00</span></div>
+                        </div>
+                        <ul class="space-y-3 mb-8 flex-grow">
+                            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300"><svg class="w-4 h-4 text-gold-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Blog para Conteúdo de Valor</li>
+                            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300"><svg class="w-4 h-4 text-gold-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Galeria de Projetos/Serviços</li>
+                            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300"><svg class="w-4 h-4 text-gold-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Otimização para Google (SEO)</li>
+                            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300"><svg class="w-4 h-4 text-gold-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Design Focado em Portfólio</li>
+                        </ul>
+                        <a href="https://wa.me/5517999999999?text=Tenho%20interesse%20no%20plano%20Institucional" target="_blank" class="block w-full py-3 text-center rounded-lg border border-neutral-900 dark:border-white text-neutral-900 dark:text-white font-bold hover:bg-neutral-900 hover:text-white dark:hover:bg-white dark:hover:text-neutral-900 transition-all duration-300">
+                            Saber Mais
+                        </a>
+                    </div>
+
+                    <!-- Card 2: Landing Page (Center - Elevated & Highlighted) -->
+                    <div class="w-full max-w-[380px] md:w-[380px] shrink-0 relative flex flex-col bg-white dark:bg-neutral-800 rounded-2xl border-2 border-gold-500 p-8 shadow-2xl shadow-gold-500/20 z-20 md:transform md:-translate-y-6">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gold-500 text-white text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wide shadow-lg">Foco em Vendas</div>
+                        <h3 class="text-2xl font-bold text-neutral-900 dark:text-white mb-2">Página de Vendas</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 h-10">Para campanhas, lançamentos ou para converter visitantes em contatos diretos.</p>
+                        <div class="mb-6">
+                            <span class="text-sm text-gray-500 dark:text-gray-400">A partir de</span>
+                            <div class="text-4xl font-bold text-neutral-900 dark:text-white">R$ 1.200<span class="text-sm font-normal text-gray-500">,00</span></div>
+                        </div>
+                        <ul class="space-y-4 mb-8 flex-grow">
+                            <li class="flex items-center text-base text-gray-800 dark:text-gray-200 font-medium"><svg class="w-5 h-5 text-gold-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Foco Total em Conversão</li>
+                            <li class="flex items-center text-base text-gray-800 dark:text-gray-200 font-medium"><svg class="w-5 h-5 text-gold-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Carregamento Ultra-rápido</li>
+                            <li class="flex items-center text-base text-gray-800 dark:text-gray-200 font-medium"><svg class="w-5 h-5 text-gold-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Integração com WhatsApp</li>
+                            <li class="flex items-center text-base text-gray-800 dark:text-gray-200 font-medium"><svg class="w-5 h-5 text-gold-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Hospedagem Inclusa (1 ano)</li>
+                        </ul>
+                        <a href="https://wa.me/5517999999999?text=Tenho%20interesse%20no%20plano%20Landing%20Page" target="_blank" class="block w-full py-4 text-center rounded-lg bg-gold-500 text-white font-bold hover:bg-gold-600 transition-all duration-300 shadow-lg shadow-gold-500/25 transform hover:scale-105">
+                            Quero Converter Visitantes
+                        </a>
+                    </div>
+
+                    <!-- Card 3: Automação (Right - Tilted Right) -->
+                    <div class="w-full max-w-[380px] md:w-[350px] shrink-0 relative flex flex-col bg-white dark:bg-neutral-900 rounded-2xl border border-gray-200 dark:border-neutral-800 p-8 shadow-lg md:transform md:rotate-6 md:translate-y-8 md:origin-bottom-left md:z-10">
+                        <h3 class="text-xl font-bold text-neutral-900 dark:text-white mb-2">Sistemas & Automação</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 h-10">Para otimizar processos: agendamentos, gestão, cardápios ou e-commerce.</p>
+                        <div class="mb-6">
+                            <span class="text-sm text-gray-500 dark:text-gray-400">Sob Consulta</span>
+                            <div class="text-3xl font-bold text-neutral-900 dark:text-white">Personalizado</div>
+                        </div>
+                        <ul class="space-y-3 mb-8 flex-grow">
+                            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300"><svg class="w-4 h-4 text-gold-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Sistema de Agendamento</li>
+                            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300"><svg class="w-4 h-4 text-gold-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Painel de Gestão Personalizado</li>
+                            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300"><svg class="w-4 h-4 text-gold-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Cardápio Digital / E-commerce</li>
+                            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300"><svg class="w-4 h-4 text-gold-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Integrações e Automações</li>
+                        </ul>
+                        <a href="https://wa.me/5517999999999?text=Tenho%20interesse%20em%20um%20projeto%20Personalizado" target="_blank" class="block w-full py-3 text-center rounded-lg border border-neutral-900 dark:border-white text-neutral-900 dark:text-white font-bold hover:bg-neutral-900 hover:text-white dark:hover:bg-white dark:hover:text-neutral-900 transition-all duration-300">
+                            Falar com Especialista
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FAQ Section (New Suggestion) -->
+        <section id="faq" class="section-observe py-12 px-4 md:px-8 w-full relative bg-gray-50 dark:bg-neutral-900/10 transition-colors duration-500">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-10">
+                    <h2 class="reveal text-2xl md:text-3xl font-display font-bold text-neutral-900 dark:text-white mb-3">
+                        Dúvidas Frequentes
+                    </h2>
+                    <p class="reveal stagger-1 text-sm md:text-base text-gray-600 dark:text-gray-400">
+                        Tudo o que você precisa saber antes de fechar negócio.
+                    </p>
+                </div>
+                
+                <div class="reveal stagger-2 grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+                    <!-- FAQ 1 -->
+                    <details class="group bg-white dark:bg-neutral-900 rounded-xl border border-gray-200 dark:border-neutral-800 overflow-hidden transition-all duration-300 hover:shadow-md hover:border-gold-500/30">
+                        <summary class="flex items-center justify-between p-4 cursor-pointer">
+                            <span class="text-base font-bold text-neutral-900 dark:text-white">O site inclui hospedagem e domínio?</span>
+                            <span class="transition-transform duration-300 group-open:rotate-180 text-gold-500">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-answer px-4 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-gray-100 dark:border-neutral-800/50">
+                            O desenvolvimento é um valor único. O domínio (seu nome na internet) e a hospedagem (onde o site fica guardado) são custos anuais pagos diretamente aos provedores, mas nós configuramos tudo para você.
+                        </div>
+                    </details>
+
+                    <!-- FAQ 2 -->
+                    <details class="group bg-white dark:bg-neutral-900 rounded-xl border border-gray-200 dark:border-neutral-800 overflow-hidden transition-all duration-300 hover:shadow-md hover:border-gold-500/30">
+                        <summary class="flex items-center justify-between p-4 cursor-pointer">
+                            <span class="text-base font-bold text-neutral-900 dark:text-white">Quanto tempo leva para ficar pronto?</span>
+                            <span class="transition-transform duration-300 group-open:rotate-180 text-gold-500">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-answer px-4 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-gray-100 dark:border-neutral-800/50">
+                            Uma <strong>Página de Vendas</strong> leva de 5 a 7 dias úteis. Um site de <strong>Presença Digital & Portfólio</strong>, de 15 a 20 dias. Projetos de <strong>Sistemas & Automação</strong> têm prazos personalizados conforme a complexidade.
+                        </div>
+                    </details>
+
+                    <!-- FAQ 3 -->
+                    <details class="group bg-white dark:bg-neutral-900 rounded-xl border border-gray-200 dark:border-neutral-800 overflow-hidden transition-all duration-300 hover:shadow-md hover:border-gold-500/30">
+                        <summary class="flex items-center justify-between p-4 cursor-pointer">
+                            <span class="text-base font-bold text-neutral-900 dark:text-white">Eu consigo atualizar o site depois?</span>
+                            <span class="transition-transform duration-300 group-open:rotate-180 text-gold-500">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-answer px-4 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-gray-100 dark:border-neutral-800/50">
+                            Sim! Entregamos um painel administrativo intuitivo onde você pode alterar textos, fotos e preços sem precisar saber nada de programação.
+                        </div>
+                    </details>
+
+                    <!-- FAQ 4 -->
+                    <details class="group bg-white dark:bg-neutral-900 rounded-xl border border-gray-200 dark:border-neutral-800 overflow-hidden transition-all duration-300 hover:shadow-md hover:border-gold-500/30">
+                        <summary class="flex items-center justify-between p-4 cursor-pointer">
+                            <span class="text-base font-bold text-neutral-900 dark:text-white">Quais são as formas de pagamento?</span>
+                            <span class="transition-transform duration-300 group-open:rotate-180 text-gold-500">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-answer px-4 text-sm text-gray-600 dark:text-gray-400 leading-relaxed border-gray-100 dark:border-neutral-800/50">
+                            Aceitamos PIX, transferência bancária e cartão de crédito em até 12x. O pagamento é dividido em 50% no início e 50% na entrega do projeto.
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section-observe py-20 px-4 md:px-8 w-full relative border-t border-gray-200 dark:border-neutral-900 bg-white dark:bg-black overflow-hidden transition-colors duration-500">
+            <!-- Background FX with Parallax ID -->
+            <div id="contact-bg" class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-gray-50 to-transparent dark:from-neutral-900/50 dark:to-transparent pointer-events-none will-change-transform transition-colors duration-500"></div>
+
+            <div class="w-full relative z-10 text-center">
+                <h2 class="reveal text-4xl md:text-5xl font-display font-bold text-neutral-900 dark:text-white mb-6 transition-colors duration-500">
+                    Vamos tirar seu projeto do papel?
+                </h2>
+                <p class="reveal stagger-1 text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-10 max-w-2xl mx-auto transition-colors duration-500">
+                    Estamos prontos para levar sua empresa para o próximo nível digital com soluções sob medida. 
+                    Solicite um orçamento personalizado diretamente pelo WhatsApp.
+                </p>
+
+                <a href="https://wa.me/5517999999999?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20or%C3%A7amento%20para%20um%20projeto." target="_blank" rel="noopener noreferrer" class="reveal stagger-2 inline-block">
+                    <div class="relative inline-flex items-center justify-center font-display font-bold tracking-wide transition-all duration-300 rounded-lg px-8 py-4 focus:outline-none focus:ring-2 focus:ring-offset-2 transform active:scale-95 overflow-hidden group bg-transparent border-2 border-neutral-800 dark:border-gray-200 text-neutral-800 dark:text-gray-100 hover:bg-[#25D366] hover:border-[#25D366] hover:text-white dark:hover:bg-[#25D366] dark:hover:border-[#25D366] dark:hover:text-white shadow-sm hover:shadow-lg text-lg">
+                        <span class="relative flex items-center">
+                            <svg class="mr-3 h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.506-.669-.516-.173-.009-.371-.009-.57-.009-.198 0-.52.074-.792.372-.272.297-1.04 1.017-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                            Faça seu Orçamento
+                        </span>
+                    </div>
+                </a>
+
+                <div class="reveal stagger-3 mt-12 flex flex-col md:flex-row justify-center gap-8 text-gray-500 dark:text-gray-500">
+                    <div class="flex items-center gap-2 justify-center">
+                       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                       <span>Bebedouro/SP</span>
+                    </div>
+                    <div class="flex items-center gap-2 justify-center">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <span>contato.fldevs@gmail.com</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Project Details Modal -->
+    <div id="project-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/70 backdrop-blur-sm p-4 transition-opacity duration-300 opacity-0">
+        <div id="project-modal-content" class="relative max-w-4xl w-full bg-white dark:bg-neutral-900 rounded-lg border border-gray-200 dark:border-neutral-800 shadow-2xl overflow-hidden transition-transform duration-300 scale-95 max-h-[90vh] flex flex-col">
+            <!-- Close Button -->
+            <button id="project-modal-close" class="absolute top-3 right-3 z-30 p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-white transition-all" aria-label="Fechar projeto">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <div class="overflow-y-auto">
+                <!-- Modal Body: Content -->
+                <div class="p-8 md:p-10">
+                    <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
+                        <h2 id="project-modal-title" class="text-3xl md:text-4xl font-display font-bold text-neutral-900 dark:text-white"></h2>
+                    </div>
+
+                    <!-- Case Study Details -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <!-- Challenge Box -->
+                        <div class="bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 rounded-xl p-6">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg text-red-600 dark:text-red-400">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                </div>
+                                <h4 class="font-bold text-lg text-red-900 dark:text-red-200">O Desafio</h4>
+                            </div>
+                            <p id="project-modal-challenge" class="text-sm text-red-800 dark:text-red-300/80 leading-relaxed"></p>
+                        </div>
+
+                        <!-- Solution Box -->
+                        <div class="bg-emerald-50 dark:bg-emerald-900/10 border border-emerald-100 dark:border-emerald-900/30 rounded-xl p-6">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="p-2 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg text-emerald-600 dark:text-emerald-400">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                                <h4 class="font-bold text-lg text-emerald-900 dark:text-emerald-200">A Solução</h4>
+                            </div>
+                            <p id="project-modal-solution" class="text-sm text-emerald-800 dark:text-emerald-300/80 leading-relaxed"></p>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Section -->
+                    <div class="mt-4">
+                        <h4 class="text-lg font-bold text-neutral-900 dark:text-white mb-4">Breve demonstração do sistema</h4>
+                        <div id="project-modal-gallery" class="grid grid-cols-1 gap-12">
+                            <!-- Images will be injected here by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-neutral-950 border-t border-gray-200 dark:border-neutral-900 py-12 px-6 transition-colors duration-500">
+        <div class="w-full flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-center md:text-left">
+                <span class="text-xl font-display font-bold text-neutral-900 dark:text-white transition-colors duration-500">
+                    FLDevs - Bebedouro<span class="text-gold-600">.</span>
+                </span>
+                <p class="text-sm text-gray-500 mt-2">
+                    © <span id="year"></span> Todos os direitos reservados.
+                </p>
+            </div>
+
+            <div class="flex items-center space-x-6">
+                <a href="#" class="text-gray-400 hover:text-neutral-900 dark:hover:text-white transition-colors duration-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"></path></svg>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-neutral-900 dark:hover:text-white transition-colors duration-300">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-neutral-900 dark:hover:text-white transition-colors duration-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-gold-600 text-white shadow-lg hover:bg-gold-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-gold-400 transition-all duration-300 opacity-0 translate-y-4 pointer-events-none" aria-label="Voltar ao topo">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+    </button>
+
+    <!-- Quiz Modal -->
+    <div id="quiz-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/70 backdrop-blur-sm p-4 transition-opacity duration-300 opacity-0">
+        <div id="quiz-modal-content" class="relative max-w-6xl w-full transition-transform duration-300 scale-95">
+            
+            <!-- Moved Quiz Content -->
+            <div class="relative bg-white dark:bg-neutral-900 rounded-lg border border-gray-200 dark:border-neutral-800 shadow-2xl overflow-hidden">
+                <!-- Close Button -->
+                <button id="quiz-modal-close" class="absolute top-4 right-4 z-30 p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-white transition-all" aria-label="Fechar diagnóstico">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2">
+                    <!-- Left: Value Proposition -->
+                    <div class="p-8 md:p-12 flex flex-col justify-center space-y-6 relative z-10 border-b lg:border-b-0 lg:border-r border-gray-100 dark:border-neutral-800/50">
+                        <h2 class="text-3xl md:text-4xl font-display font-bold text-neutral-900 dark:text-white leading-[1.2]">
+                            Não sabe por onde começar?
+                            <br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-500 to-gold-700">Encontre a solução ideal.</span>
+                        </h2>
+                        <p class="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
+                            Responda nossas rápidas perguntas e descubra qual solução digital é a ideal para acelerar o crescimento da sua empresa.
+                        </p>
+                        <div class="pt-4">
+                            <div id="quiz-progress" class="flex items-center gap-4">
+                                <div class="w-full bg-gray-200 dark:bg-neutral-800 rounded-full h-2">
+                                    <div id="quiz-progress-bar" class="bg-gold-500 h-2 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                                </div>
+                                    <span id="quiz-step-indicator" class="font-bold text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap shrink-0">Passo 1 de 5</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Interactive Quiz -->
+                    <div id="quiz-container" class="bg-gray-50 dark:bg-neutral-950/50 p-8 md:p-12 flex flex-col justify-center relative">
+                        <!-- Step 1 -->
+                        <div id="quiz-step-1" class="quiz-step active-step">
+                            <h3 class="text-xl font-bold text-neutral-900 dark:text-white mb-6">Qual é o seu tipo de negócio?</h3>
+                            <div class="space-y-4">
+                                <label class="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 border-gray-200 dark:border-neutral-800 hover:bg-gray-100 dark:hover:bg-neutral-800/50 has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/20 dark:has-[:checked]:bg-gold-900/10"><input type="radio" name="step1" value="restaurante" class="hidden peer"><span class="flex items-center text-neutral-800 dark:text-gray-200 peer-checked:font-bold peer-checked:text-gold-600">Restaurante / Lanchonete</span></label>
+                                <label class="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 border-gray-200 dark:border-neutral-800 hover:bg-gray-100 dark:hover:bg-neutral-800/50 has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/20 dark:has-[:checked]:bg-gold-900/10"><input type="radio" name="step1" value="clinica" class="hidden peer"><span class="flex items-center text-neutral-800 dark:text-gray-200 peer-checked:font-bold peer-checked:text-gold-600">Clínica / Dentista</span></label>
+                                <label class="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 border-gray-200 dark:border-neutral-800 hover:bg-gray-100 dark:hover:bg-neutral-800/50 has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/20 dark:has-[:checked]:bg-gold-900/10"><input type="radio" name="step1" value="barbearia" class="hidden peer"><span class="flex items-center text-neutral-800 dark:text-gray-200 peer-checked:font-bold peer-checked:text-gold-600">Barbearia / Salão</span></label>
+                                <label class="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 border-gray-200 dark:border-neutral-800 hover:bg-gray-100 dark:hover:bg-neutral-800/50 has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/20 dark:has-[:checked]:bg-gold-900/10"><input type="radio" name="step1" value="escritorio" class="hidden peer"><span class="flex items-center text-neutral-800 dark:text-gray-200 peer-checked:font-bold peer-checked:text-gold-600">Escritório / Advocacia</span></label>
+                                <label class="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 border-gray-200 dark:border-neutral-800 hover:bg-gray-100 dark:hover:bg-neutral-800/50 has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/20 dark:has-[:checked]:bg-gold-900/10"><input type="radio" name="step1" value="outro" class="hidden peer"><span class="flex items-center text-neutral-800 dark:text-gray-200 peer-checked:font-bold peer-checked:text-gold-600">Outro</span></label>
+                            </div>
+                        </div>
+                        <!-- Step 2 -->
+                        <div id="quiz-step-2" class="quiz-step">
+                            <h3 class="text-xl font-bold text-neutral-900 dark:text-white mb-6">Você precisa que clientes agendem horário?</h3>
+                            <div class="space-y-4">
+                                <label class="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 border-gray-200 dark:border-neutral-800 hover:bg-gray-100 dark:hover:bg-neutral-800/50 has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/20 dark:has-[:checked]:bg-gold-900/10"><input type="radio" name="step2" value="sim" class="hidden peer"><span class="flex items-center text-neutral-800 dark:text-gray-200 peer-checked:font-bold peer-checked:text-gold-600">Sim</span></label>
+                                <label class="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 border-gray-200 dark:border-neutral-800 hover:bg-gray-100 dark:hover:bg-neutral-800/50 has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/20 dark:has-[:checked]:bg-gold-900/10"><input type="radio" name="step2" value="nao" class="hidden peer"><span class="flex items-center text-neutral-800 dark:text-gray-200 peer-checked:font-bold peer-checked:text-gold-600">Não</span></label>
+                            </div>
+                        </div>
+                        <!-- Step 3 -->
+                        <div id="quiz-step-3" class="quiz-step">
+                            <h3 class="text-xl font-bold text-neutral-900 dark:text-white mb-6">Você vende produtos com variações e categorias?</h3>
+                            <div class="space-y-4">
+                                <label class="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 border-gray-200 dark:border-neutral-800 hover:bg-gray-100 dark:hover:bg-neutral-800/50 has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/20 dark:has-[:checked]:bg-gold-900/10"><input type="radio" name="step3" value="sim" class="hidden peer"><span class="flex items-center text-neutral-800 dark:text-gray-200 peer-checked:font-bold peer-checked:text-gold-600">Sim</span></label>
+                                <label class="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 border-gray-200 dark:border-neutral-800 hover:bg-gray-100 dark:hover:bg-neutral-800/50 has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/20 dark:has-[:checked]:bg-gold-900/10"><input type="radio" name="step3" value="nao" class="hidden peer"><span class="flex items-center text-neutral-800 dark:text-gray-200 peer-checked:font-bold peer-checked:text-gold-600">Não</span></label>
+                            </div>
+                        </div>
+                        <!-- Step 4 -->
+                        <div id="quiz-step-4" class="quiz-step">
+                            <h3 class="text-xl font-bold text-neutral-900 dark:text-white mb-6">Seu principal objetivo é:</h3>
+                            <div class="space-y-4">
+                                <label class="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 border-gray-200 dark:border-neutral-800 hover:bg-gray-100 dark:hover:bg-neutral-800/50 has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/20 dark:has-[:checked]:bg-gold-900/10"><input type="radio" name="step4" value="whatsapp" class="hidden peer"><span class="flex items-center text-neutral-800 dark:text-gray-200 peer-checked:font-bold peer-checked:text-gold-600">Receber mensagens no WhatsApp</span></label>
+                                <label class="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 border-gray-200 dark:border-neutral-800 hover:bg-gray-100 dark:hover:bg-neutral-800/50 has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/20 dark:has-[:checked]:bg-gold-900/10"><input type="radio" name="step4" value="agenda" class="hidden peer"><span class="flex items-center text-neutral-800 dark:text-gray-200 peer-checked:font-bold peer-checked:text-gold-600">Organizar agenda</span></label>
+                                <label class="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 border-gray-200 dark:border-neutral-800 hover:bg-gray-100 dark:hover:bg-neutral-800/50 has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/20 dark:has-[:checked]:bg-gold-900/10"><input type="radio" name="step4" value="autoridade" class="hidden peer"><span class="flex items-center text-neutral-800 dark:text-gray-200 peer-checked:font-bold peer-checked:text-gold-600">Mostrar autoridade</span></label>
+                                <label class="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 border-gray-200 dark:border-neutral-800 hover:bg-gray-100 dark:hover:bg-neutral-800/50 has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/20 dark:has-[:checked]:bg-gold-900/10"><input type="radio" name="step4" value="vender" class="hidden peer"><span class="flex items-center text-neutral-800 dark:text-gray-200 peer-checked:font-bold peer-checked:text-gold-600">Vender produtos online</span></label>
+                            </div>
+                        </div>
+                        <!-- Step 5 -->
+                        <div id="quiz-step-5" class="quiz-step">
+                            <h3 class="text-xl font-bold text-neutral-900 dark:text-white mb-6">Você já possui presença no Google?</h3>
+                            <div class="space-y-4">
+                                <label class="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 border-gray-200 dark:border-neutral-800 hover:bg-gray-100 dark:hover:bg-neutral-800/50 has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/20 dark:has-[:checked]:bg-gold-900/10"><input type="radio" name="step5" value="sim" class="hidden peer"><span class="flex items-center text-neutral-800 dark:text-gray-200 peer-checked:font-bold peer-checked:text-gold-600">Sim, e quero melhorar</span></label>
+                                <label class="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 border-gray-200 dark:border-neutral-800 hover:bg-gray-100 dark:hover:bg-neutral-800/50 has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/20 dark:has-[:checked]:bg-gold-900/10"><input type="radio" name="step5" value="nao" class="hidden peer"><span class="flex items-center text-neutral-800 dark:text-gray-200 peer-checked:font-bold peer-checked:text-gold-600">Não, quero começar</span></label>
+                            </div>
+                        </div>
+
+                        <!-- Result Display -->
+                        <div id="quiz-result-display" class="quiz-step">
+                            <h3 class="text-xl font-bold text-neutral-900 dark:text-white mb-2">Tendo em vista suas respostas, o melhor tipo de site para você é:</h3>
+                            <p id="quiz-recommendation" class="text-3xl font-bold text-gold-500 mb-6"></p>
+                        </div>
+
+                        <!-- Navigation -->
+                        <div class="mt-8 flex items-center justify-between">
+                            <button id="quiz-back-btn" class="text-sm font-bold text-gray-500 hover:text-neutral-900 dark:hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>&larr; Voltar</button>
+                            <button id="quiz-next-btn" class="px-6 py-2.5 rounded-lg bg-neutral-900 text-white font-bold hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>Próximo</button>
+                            <div class="flex gap-3">
+                                <button id="quiz-restart-btn" class="hidden px-4 py-2.5 rounded-lg border border-gray-300 dark:border-neutral-700 text-gray-600 dark:text-gray-300 font-bold hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors">Refazer</button>
+                                <a id="quiz-result-btn" href="#pricing" class="hidden px-6 py-2.5 rounded-lg bg-gold-500 text-white font-bold hover:bg-gold-600 transition-colors shadow-lg shadow-gold-500/20">Ver Planos</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- Logic: Date ---
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            // --- Logic: Theme Toggle ---
+            const toggleBtns = [document.getElementById('theme-toggle'), document.getElementById('theme-toggle-mobile')];
+            const html = document.documentElement;
+            
+            // Icons Containers
+            const iconSun = document.getElementById('icon-sun');
+            const iconMoon = document.getElementById('icon-moon');
+            const iconSunMobile = document.getElementById('icon-sun-mobile');
+            const iconMoonMobile = document.getElementById('icon-moon-mobile');
+
+            function applyTheme(isDark) {
+                if (isDark) {
+                    html.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                    
+                    // Animate Icons: Sun Visible, Moon Hidden
+                    iconSun.classList.remove('theme-icon-hidden');
+                    iconSun.classList.add('theme-icon-visible');
+                    iconMoon.classList.remove('theme-icon-visible');
+                    iconMoon.classList.add('theme-icon-hidden');
+
+                    iconSunMobile.classList.remove('theme-icon-hidden');
+                    iconSunMobile.classList.add('theme-icon-visible');
+                    iconMoonMobile.classList.remove('theme-icon-visible');
+                    iconMoonMobile.classList.add('theme-icon-hidden');
+
+                } else {
+                    html.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+
+                    // Animate Icons: Sun Hidden, Moon Visible
+                    iconSun.classList.remove('theme-icon-visible');
+                    iconSun.classList.add('theme-icon-hidden');
+                    iconMoon.classList.remove('theme-icon-hidden');
+                    iconMoon.classList.add('theme-icon-visible');
+
+                    iconSunMobile.classList.remove('theme-icon-visible');
+                    iconSunMobile.classList.add('theme-icon-hidden');
+                    iconMoonMobile.classList.remove('theme-icon-hidden');
+                    iconMoonMobile.classList.add('theme-icon-visible');
+                }
+            }
+
+            // Sync UI State with the Class List set in <head>
+            const isDarkInitially = html.classList.contains('dark');
+            applyTheme(isDarkInitially);
+            
+            let isDarkMode = isDarkInitially;
+
+            toggleBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    isDarkMode = !isDarkMode;
+                    applyTheme(isDarkMode);
+                });
+            });
+
+            // --- Logic: Navbar Scroll & Mobile Menu ---
+            const navbar = document.getElementById('navbar');
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const iconMenu = document.getElementById('icon-menu');
+            const iconClose = document.getElementById('icon-close');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-white/70', 'dark:bg-neutral-950/70', 'backdrop-blur-lg', 'border-gray-200', 'dark:border-neutral-800', 'shadow-sm', 'py-3');
+                    navbar.classList.remove('bg-transparent', 'border-transparent', 'py-4');
+                } else {
+                    navbar.classList.remove('bg-white/70', 'dark:bg-neutral-950/70', 'backdrop-blur-lg', 'border-gray-200', 'dark:border-neutral-800', 'shadow-sm', 'py-3');
+                    navbar.classList.add('bg-transparent', 'border-transparent', 'py-4');
+                }
+            });
+
+            let isMenuOpen = false;
+            menuToggle.addEventListener('click', () => {
+                isMenuOpen = !isMenuOpen;
+                if (isMenuOpen) {
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenu.classList.add('flex');
+                    iconMenu.classList.add('hidden');
+                    iconClose.classList.remove('hidden');
+                } else {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                    iconMenu.classList.remove('hidden');
+                    iconClose.classList.add('hidden');
+                }
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    isMenuOpen = false;
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                    iconMenu.classList.remove('hidden');
+                    iconClose.classList.add('hidden');
+                });
+            });
+
+            // --- Logic: Parallax Effects ---
+            const parallaxElements = [
+                { id: 'hero-blob-1', speed: 0.15 },
+                { id: 'hero-blob-2', speed: -0.1 },
+                { id: 'contact-bg', speed: 0.05 }
+            ];
+
+            function animateParallax() {
+                const scrollY = window.scrollY;
+                
+                parallaxElements.forEach(el => {
+                    const element = document.getElementById(el.id);
+                    if (element) {
+                        // Apply transform3d for hardware acceleration
+                        // Using translate3d(0, y, 0) is efficient and promotes to GPU layer
+                        element.style.transform = `translate3d(0, ${scrollY * el.speed}px, 0)`;
+                    }
+                });
+                
+                requestAnimationFrame(animateParallax);
+            }
+            // Start Parallax Loop
+            requestAnimationFrame(animateParallax);
+
+            // --- Logic: Intersection Observer for Reveal Animations ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px"
+            });
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+
+            // --- Logic: Testimonials Carousel ---
+            const testimonialsData = [
+                { name: "Proprietário", role: "Barbearia", text: "A gente perdia muito tempo respondendo WhatsApp pra agendar. Depois do sistema, os próprios clientes marcam o horário, qual corte vão querer, e em tempo real eu consigo abrir lugar na cadeira para não agendados cortarem.", stars: 5, image: "carlos-mendes.jpeg" },
+                { name: "Villa Real Imóveis", role: "Ana Souza", text: "No mercado de imóveis de luxo, a primeira impressão é tudo. O site que a FLDevs criou transmite exatamente o profissionalismo e a exclusividade que a gente precisava. É rápido, elegante e nossos clientes elogiam.", stars: 5, image: "ana-souza.jpeg" },
+                { name: "Roberto Ferreira", role: "Construtora Silva", text: "Controlar os custos de várias obras ao mesmo tempo era um desafio. Com o painel que eles criaram, agora eu vejo em tempo real onde cada centavo está indo. Isso facilitou demais nossas decisões e otimizou o lucro.", stars: 5, image: "roberto-ferreira.jpeg" },
+                { name: "Proprietário", role: "Oficina Mecânica", text: "Precisava de uma página pra divulgar nossos serviços e um sisteminha simples para gerenciar os veiculos dos clientes. Eles fizeram rápido e o resultado foi surpreendente. O número de orçamentos que chegam e a organização que entram valeu cada centavo investido, recomendo!", stars: 5, image: "jose-mapra.jpeg" },
+                { name: "Proprietária", role: "Nail Designer", text: "Minha agenda era uma loucura no caderno kkk. Agora, com o sistema de agendamento, minhas clientes marcam um horário, e tanto eu, quanto elas, somos alertadas com um lembrete 10min antes de cada sessão. Acabou a confusão e eu não me perco mais.", stars: 5, image: "nail.jpeg" },
+                { name: "Roberta C. Oliveira", role: "LashStudio", text: "Meu trabalho é muito visual, mas no Instagram eu não sentia muita diferença. Até que conheci os meninos da FLDevs, que me apresentaram um modelo de exibição diferente do instagram, funcionou como um portfólio interativo, mostrando a qualidade do meu trabalho consegui me destacar bastante na cidade.", stars: 5, image: "roberta.jpeg" },
+           ];
+
+            const sliderTrack = document.getElementById('slider-track');
+            const paginationContainer = document.getElementById('pagination');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            let currentIndex = 0;
+            let itemsPerView = 3;
+
+            // Render Testimonials
+            function renderStars(count) {
+                let html = '<div class="flex gap-1 text-gold-500 mb-6">';
+                for (let i = 0; i < 5; i++) {
+                    if (i < count) {
+                        html += '<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>';
+                    } else {
+                        html += '<svg class="w-5 h-5 fill-current opacity-30" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>';
+                    }
+                }
+                html += '</div>';
+                return html;
+            }
+
+            sliderTrack.innerHTML = testimonialsData.map((t) => `
+                <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 p-3">
+                    <div class="bg-white dark:bg-neutral-900 p-8 rounded-2xl border border-gray-200 dark:border-neutral-800 relative hover:border-gold-500/30 transition-all duration-300 hover:shadow-xl h-full flex flex-col justify-between">
+                        <div>
+                            ${renderStars(t.stars)}
+                            <p class="text-gray-600 dark:text-gray-300 italic mb-8 leading-relaxed text-sm md:text-base">"${t.text}"</p>
+                        </div>
+                        <div class="flex items-center gap-4 mt-auto">
+                            <img src="${t.image}" alt="${t.name}" class="w-12 h-12 rounded-full object-cover border-2 border-gray-100 dark:border-neutral-700" loading="lazy">
+                            <div>
+                                <h4 class="font-bold text-neutral-900 dark:text-white">${t.name}</h4>
+                                <span class="text-xs font-semibold text-gold-600 uppercase tracking-wide">${t.role}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Responsive Logic
+            function updateItemsPerView() {
+                if (window.innerWidth < 768) {
+                    itemsPerView = 1;
+                } else if (window.innerWidth < 1024) {
+                    itemsPerView = 2;
+                } else {
+                    itemsPerView = 3;
+                }
+                updateSlider();
+                renderPagination();
+            }
+
+            function updateSlider() {
+                const percentage = -(currentIndex * (100 / itemsPerView));
+                sliderTrack.style.transform = `translateX(${percentage}%)`;
+                
+                // Update dots
+                const dots = document.querySelectorAll('.pagination-dot');
+                dots.forEach((dot, idx) => {
+                    const activeIndex = Math.ceil(currentIndex / itemsPerView);
+                    // For dots, simplistic mapping based on pages
+                    if (idx === Math.ceil(currentIndex/itemsPerView)) { 
+                       dot.classList.add('bg-gold-600', 'w-6'); 
+                       dot.classList.remove('bg-gray-300', 'dark:bg-neutral-700');
+                    } else {
+                       dot.classList.remove('bg-gold-600', 'w-6');
+                       dot.classList.add('bg-gray-300', 'dark:bg-neutral-700');
+                    }
+                });
+
+                // Update button states
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex >= testimonialsData.length - itemsPerView;
+            }
+            
+            function renderPagination() {
+
+                // Simplified Pagination: Just one dot per "page" of content
+                const pages = Math.ceil(testimonialsData.length / itemsPerView);
+                let html = '';
+                for(let i=0; i < pages; i++) {
+                    html += `<button class="pagination-dot w-2 h-2 rounded-full bg-gray-300 dark:bg-neutral-700 transition-all duration-300" data-index="${i * itemsPerView}"></button>`;
+                }
+                paginationContainer.innerHTML = html;
+
+                document.querySelectorAll('.pagination-dot').forEach(dot => {
+                    dot.addEventListener('click', (e) => {
+                        currentIndex = parseInt(e.target.dataset.index);
+                        // clamp
+                        if(currentIndex > testimonialsData.length - itemsPerView) currentIndex = testimonialsData.length - itemsPerView;
+                        updateSlider();
+                    });
+                });
+                
+                updateSlider(); // Set initial active dot
+            }
+
+            nextBtn.addEventListener('click', () => {
+                if (currentIndex < testimonialsData.length - itemsPerView) {
+                    currentIndex++;
+                    updateSlider();
+                }
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateSlider();
+                }
+            });
+
+            // Touch events for mobile swipe
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            sliderTrack.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, {passive: true});
+
+            sliderTrack.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, {passive: true});
+
+            function handleSwipe() {
+                // Threshold for swipe (e.g. 50px)
+                if (touchEndX < touchStartX - 50) {
+                    // Swiped Left (Next)
+                    if (currentIndex < testimonialsData.length - itemsPerView) {
+                        currentIndex++;
+                        updateSlider();
+                    }
+                }
+                if (touchEndX > touchStartX + 50) {
+                    // Swiped Right (Prev)
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        updateSlider();
+                    }
+                }
+            }
+
+            window.addEventListener('resize', updateItemsPerView);
+            updateItemsPerView(); // Initial call
+
+            // --- Logic: Interactive Quiz (Inline) ---
+            const quizContainer = document.getElementById('quiz-container');
+            if (quizContainer) {
+                const steps = [document.getElementById('quiz-step-1'), document.getElementById('quiz-step-2'), document.getElementById('quiz-step-3'), document.getElementById('quiz-step-4'), document.getElementById('quiz-step-5'), document.getElementById('quiz-result-display')];
+                const nextBtn = document.getElementById('quiz-next-btn');
+                const backBtn = document.getElementById('quiz-back-btn');
+                const restartBtn = document.getElementById('quiz-restart-btn');
+                const plansBtn = document.getElementById('quiz-plans-btn');
+                const progressBar = document.getElementById('quiz-progress-bar');
+                const stepIndicator = document.getElementById('quiz-step-indicator');
+
+                let currentStep = 0;
+                const totalQuestions = 5;
+                let answers = {};
+
+                function updateQuizUI() {
+                    // Update steps visibility
+                    steps.forEach((step, index) => {
+                        step.classList.toggle('active-step', index === currentStep);
+                    });
+
+                    // Update progress bar and indicator
+                    const progress = currentStep >= totalQuestions ? 100 : (currentStep / totalQuestions) * 100;
+                    progressBar.style.width = `${progress}%`;
+                    if (currentStep < totalQuestions) {
+                        stepIndicator.textContent = `Passo ${currentStep + 1} de ${totalQuestions}`;
+                        stepIndicator.style.display = 'block';
+                    } else {
+                        stepIndicator.style.display = 'none';
+                    }
+
+                    // Update button states
+                    backBtn.disabled = currentStep === 0;
+                    nextBtn.disabled = !answers[`step${currentStep + 1}`];
+                    
+                    if (currentStep === totalQuestions - 1) {
+                        nextBtn.textContent = 'Ver Resultado';
+                    } else {
+                        nextBtn.textContent = 'Próximo';
+                    }
+
+                    if (currentStep >= totalQuestions) {
+                        nextBtn.classList.add('hidden');
+                        backBtn.classList.add('hidden');
+                        restartBtn.classList.remove('hidden');
+                        document.getElementById('quiz-result-btn').classList.remove('hidden');
+                        calculateResult();
+                    } else {
+                        nextBtn.classList.remove('hidden');
+                        backBtn.classList.remove('hidden');
+                        restartBtn.classList.add('hidden');
+                        document.getElementById('quiz-result-btn').classList.add('hidden');
+                    }
+                }
+
+                function calculateResult() {
+                    const { step1: businessType, step2: needsBooking, step3: sellsProducts, step4: mainGoal } = answers;
+                    let recommendation = 'Presença Digital & Portfólio'; // Default
+
+                    // Priority 1: Specific feature needs that point to Automation
+                    if ((needsBooking === 'sim' && ['clinica', 'barbearia'].includes(businessType)) || (businessType === 'restaurante' && (sellsProducts === 'sim' || mainGoal === 'vender'))) {
+                        recommendation = 'Sistemas & Automação';
+                    } 
+                    // Priority 2: Goal is pure conversion
+                    else if (mainGoal === 'whatsapp') {
+                        recommendation = 'Página de Vendas';
+                    } 
+                    // Priority 3: Goal is authority or it's a professional office
+                    else if (businessType === 'escritorio' || mainGoal === 'autoridade') {
+                        recommendation = 'Presença Digital & Portfólio';
+                    }
+
+                    document.getElementById('quiz-recommendation').textContent = recommendation;
+                }
+
+                quizContainer.addEventListener('change', (e) => {
+                    if (e.target.name && e.target.name.startsWith('step')) {
+                        answers[e.target.name] = e.target.value;
+                        updateQuizUI();
+                    }
+                });
+
+                nextBtn.addEventListener('click', () => { if (currentStep < steps.length - 1) currentStep++; updateQuizUI(); });
+                backBtn.addEventListener('click', () => { if (currentStep > 0) currentStep--; updateQuizUI(); });
+                restartBtn.addEventListener('click', () => { 
+                    currentStep = 0;
+                    // Clear radio buttons
+                    quizContainer.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+                    answers = {}; 
+                    updateQuizUI(); 
+                });
+
+                // Initial state
+                updateQuizUI();
+            }
+
+            // --- Logic: Project Modal ---
+            const projectData = {
+                '1': {
+                    title: 'Sistema de Agendamento para Barbearia',
+                    challenge: 'O gerenciamento de horários era feito manualmente via WhatsApp, consumindo muito tempo do barbeiro e gerando confusão na agenda, além de muitos "não comparecimentos".',
+                    solution: 'Desenvolvemos uma plataforma web onde os clientes podem ver a disponibilidade em tempo real, agendar e cortar. O sistema envia lembretes automáticos, reduzindo o "no-show" e liberando o profissional.',
+                    gallery: [
+                        // 🔴 AQUI: Lista de imagens da galeria do modal. Troque pelos seus arquivos.
+                        'barber_inicio.png',
+                        'barber_meio.png',
+                        'barber_fim.png'
+                    ]
+                },
+                '2': {
+                    title: 'Sistema de Gestão para Oficina Mecânica',
+                    challenge: 'O controle de ordens de serviço, peças e histórico dos veículos era feito em fichas de papel, gerando perda de informações, erros de cálculo e demora no atendimento ao cliente.',
+                    solution: 'Criamos um Painel Administrativo Web (Dashboard) onde é possível abrir O.S., controlar estoque em tempo real e enviar orçamentos aprováveis via WhatsApp. Tudo integrado e sem papel.',
+                    gallery: [
+                        // 🔴 AQUI: Galeria do modal
+                        'oficina_inicio.png',
+                        'oficina_meio.png',
+                        'oficina_fim.png'
+                    ]
+                },
+                '3': {
+                    title: 'Landing Page de Vendas (Nail Designer)',
+                    challenge: 'A profissional recebia muitos "curiosos" no Direct do Instagram, mas tinha dificuldade em converter esse interesse em vendas reais, perdendo tempo e respondendo dúvidas repetitivas.',
+                    solution: 'Criamos uma Landing Page de alta performance.  Utilizando textos e designs 100% focados em conversão, conseguimos diminuir exorbitantemente essas distrações, resultando em mais vendas e horarios fechados.',
+                    gallery: [
+                        // 🔴 AQUI: Galeria do modal
+                        'nail_inicio.png',
+                        'nail_meio.png',
+                        'nail_fim.png'
+                    ]
+                }
+            };
+
+            const projectModal = document.getElementById('project-modal');
+            const projectModalContent = document.getElementById('project-modal-content');
+            const closeProjectModalBtn = document.getElementById('project-modal-close');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            function openProjectModal(projectId) {
+                const data = projectData[projectId];
+                if (!data) return;
+
+                document.getElementById('project-modal-title').textContent = data.title;
+                document.getElementById('project-modal-challenge').textContent = data.challenge;
+                document.getElementById('project-modal-solution').textContent = data.solution;
+
+                // Populate gallery
+                const galleryContainer = document.getElementById('project-modal-gallery');
+                const gallerySection = galleryContainer.parentElement;
+
+                if (data.gallery && data.gallery.length > 0) {
+                    galleryContainer.innerHTML = data.gallery.map(imgSrc => `
+                        <div class="bg-white dark:bg-neutral-800 p-1.5 rounded-lg shadow-md border border-gray-200 dark:border-neutral-700/50 transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                            <img src="${imgSrc}" alt="Demonstração do sistema" class="w-full h-full object-cover rounded-sm" loading="lazy">
+                        </div>
+                    `).join('');
+                    gallerySection.style.display = 'block';
+                } else {
+                    gallerySection.style.display = 'none';
+                }
+                
+                // Show Modal
+                projectModal.classList.remove('hidden');
+                projectModal.classList.add('flex');
+                setTimeout(() => {
+                    projectModal.classList.remove('opacity-0');
+                    projectModalContent.classList.remove('scale-95');
+                }, 20);
+            }
+
+            function closeProjectModal() {
+                projectModal.classList.add('opacity-0');
+                projectModalContent.classList.add('scale-95');
+                setTimeout(() => {
+                    projectModal.classList.add('hidden');
+                    projectModal.classList.remove('flex');
+                }, 300);
+            }
+
+            projectCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const projectId = card.getAttribute('data-project-id');
+                    openProjectModal(projectId);
+                });
+            });
+
+            closeProjectModalBtn.addEventListener('click', closeProjectModal);
+            projectModal.addEventListener('click', (e) => {
+                if (e.target === projectModal) {
+                    closeProjectModal();
+                }
+            });
+
+            // --- Logic: Quiz Modal ---
+            const quizModal = document.getElementById('quiz-modal');
+            const quizModalContent = document.getElementById('quiz-modal-content');
+            const openQuizBtn = document.getElementById('open-quiz-modal');
+            const closeQuizBtn = document.getElementById('quiz-modal-close');
+            const quizResultBtn = document.getElementById('quiz-result-btn'); // Button inside the quiz
+
+            function openModal() {
+                quizModal.classList.remove('hidden');
+                quizModal.classList.add('flex');
+                setTimeout(() => { // Allow display to change before starting transition
+                    quizModal.classList.remove('opacity-0');
+                    quizModalContent.classList.remove('scale-95');
+                }, 20);
+            }
+
+            function closeModal() {
+                quizModal.classList.add('opacity-0');
+                quizModalContent.classList.add('scale-95');
+                setTimeout(() => { // Hide after transition
+                    quizModal.classList.add('hidden');
+                    quizModal.classList.remove('flex');
+                }, 300);
+            }
+
+            if (openQuizBtn) {
+                openQuizBtn.addEventListener('click', openModal);
+            }
+            closeQuizBtn.addEventListener('click', closeModal);
+            quizResultBtn.addEventListener('click', closeModal); // Close modal when user clicks "Quero esse modelo"
+            quizModal.addEventListener('click', (e) => { if (e.target === quizModal) closeModal(); }); // Close on overlay click
+
+            // --- Logic: Back to Top Button ---
+            const backToTopButton = document.getElementById('back-to-top');
+            if (backToTopButton) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 400) {
+                        backToTopButton.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+                    } else {
+                        backToTopButton.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+                    }
+                });
+                backToTopButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+
+        });
+    </script>
+</body>
+</html>
