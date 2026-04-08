@@ -14,7 +14,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -25,7 +25,7 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        display: ['Manrope', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
                     },
                     colors: {
                         metallic: {
@@ -115,6 +115,22 @@
         .quiz-step.active-step { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* Grain Texture Overlay */
+        .bg-grain {
+            position: relative;
+        }
+        .bg-grain::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.03;
+            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+            filter: contrast(150%) brightness(100%);
+        }
     </style>
 
     <style>
@@ -143,9 +159,14 @@
             padding-bottom: 1rem; /* pb-4 */
             border-top-width: 1px;
         }
+
+        /* Hide scrollbar for gallery but allow functionality */
+        #project-modal-gallery::-webkit-scrollbar {
+            display: none;
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 dark:bg-neutral-950 dark:text-gray-100 transition-colors duration-500 ease-in-out antialiased overflow-x-hidden font-sans selection:bg-gold-500/30 selection:text-gold-700 dark:selection:text-gold-300">
+<body class="bg-gray-50 text-gray-900 dark:bg-neutral-950 dark:text-gray-100 transition-colors duration-500 ease-in-out antialiased overflow-x-hidden font-sans selection:bg-gold-500/30 selection:text-gold-700 dark:selection:text-gold-300 bg-grain">
 
     <!-- Navigation -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out bg-transparent border-b border-transparent py-4">
@@ -233,7 +254,7 @@
                             </div>
                         </a>
                         
-                        <a href="https://wa.me/5517999999999" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto">
+                        <a href="https://wa.me/5517991744797" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto">
                             <div class="w-full relative inline-flex items-center justify-center font-display font-bold tracking-wide transition-all duration-300 rounded-lg px-8 py-3.5 focus:outline-none focus:ring-2 focus:ring-offset-2 transform active:scale-95 overflow-hidden group bg-transparent border-2 border-neutral-800 dark:border-gray-200 text-neutral-800 dark:text-gray-100 hover:bg-[#25D366] hover:border-[#25D366] hover:text-white dark:hover:bg-[#25D366] dark:hover:border-[#25D366] dark:hover:text-white shadow-sm hover:shadow-lg h-14 text-lg">
                                 <span class="relative flex items-center transition-all duration-300 group-hover:opacity-0 group-hover:scale-50">Fale Conosco no WhatsApp <svg class="ml-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.506-.669-.516-.173-.009-.371-.009-.57-.009-.198 0-.52.074-.792.372-.272.297-1.04 1.017-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"></path></svg></span>
                                 <span class="absolute inset-0 flex items-center justify-center opacity-0 scale-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100">
@@ -267,7 +288,7 @@
                             Projetos Recentes
                         </h2>
                         <p class="reveal stagger-2 text-lg text-gray-600 dark:text-gray-400 transition-colors duration-500">
-                            Oficinas Mecânicas, Barbearias, Prestadores de Serviços, e muit o mais...
+                            Oficinas Mecânicas, Barbearias, Prestadores de Serviços, e muito mais...
                         </p>
                     </div>
                     <a href="folio.html" class="reveal stagger-2 hidden md:flex items-center font-semibold text-neutral-900 dark:text-white hover:text-gold-600 transition-colors duration-300 group">
@@ -278,20 +299,20 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
                     <!-- Project 1 -->
                     <div data-project-id="1" class="project-card reveal group relative bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-neutral-800 transition-all duration-500 hover:shadow-2xl hover:shadow-neutral-900/10 dark:hover:shadow-white/5 hover:-translate-y-2 flex flex-col h-full cursor-pointer hover:border-gold-500/50">
-                        <div class="relative h-64 overflow-hidden bg-gray-200 dark:bg-neutral-950 transition-colors duration-500">
+                        <div class="relative h-64 overflow-hidden bg-black transition-colors duration-500 flex items-center justify-center p-10">
                             <!-- 🔴 AQUI (CARD 1): Coloque o caminho da sua foto no 'src' abaixo (ex: src="imagens/foto-barbearia.jpg") -->
-                            <img src="barber_inicio.png" alt="Sistema de Agendamento para Barbearia" class="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110" loading="lazy" />
+                            <img src="barber_capa.png" alt="DiSteffano Barbearia" class="max-w-full h-auto max-h-full object-contain transition-transform duration-700 ease-out group-hover:scale-110" loading="lazy" />
                         </div>
                         <div class="p-8 flex flex-col flex-grow relative z-10 bg-white dark:bg-neutral-900 transition-colors duration-500">
-                            <h3 class="text-2xl font-bold font-display text-neutral-900 dark:text-white mb-3 group-hover:text-gold-600 transition-colors duration-300">Sistema de Agendamento para Barbearia</h3>
-                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6 flex-grow transition-colors duration-500">Automatização completa da agenda. Clientes agendam sozinhos, escolhem serviços e o sistema organiza os horários, liberando o profissional para focar no que importa: o cliente.</p>
+                            <h3 class="text-2xl font-bold font-display text-neutral-900 dark:text-white mb-3 group-hover:text-gold-600 transition-colors duration-300">DiSteffano Barbearia</h3>
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6 flex-grow transition-colors duration-500">Uma solução robusta que elevou o padrão de atendimento e a organização da barbearia. Com agendamento autônomo e gestão financeira, eliminamos o gargalo das mensagens manuais.</p>
                             <!-- Key Result -->
                             <div class="mt-auto pt-4 border-t border-gray-100 dark:border-neutral-800/50">
                                 <div class="flex items-center gap-3">
                                     <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                                     <div>
                                         <span class="text-xs font-bold text-green-500 uppercase tracking-wider">Resultado</span>
-                                        <p class="text-sm text-neutral-800 dark:text-gray-200 font-semibold">Eliminação das interrupções no WhatsApp e redução drástica nos furos de agenda.</p>
+                                        <p class="text-sm text-neutral-800 dark:text-gray-200 font-semibold">Redução de 85% no tempo de gestão manual e eliminação total de conflitos de horários.</p>
                                     </div>
                                 </div>
                             </div>
@@ -300,13 +321,13 @@
 
                     <!-- Project 2 -->
                     <div data-project-id="2" class="project-card reveal stagger-1 group relative bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-neutral-800 transition-all duration-500 hover:shadow-2xl hover:shadow-neutral-900/10 dark:hover:shadow-white/5 hover:-translate-y-2 flex flex-col h-full cursor-pointer hover:border-gold-500/50">
-                        <div class="relative h-64 overflow-hidden bg-gray-200 dark:bg-neutral-950 transition-colors duration-500">
-                            <!-- 🔴 AQUI (CARD 2): Coloque o caminho da sua foto no 'src' abaixo -->
-                            <img src="oficina_inicio.png" alt="Sistema de Gestão para Oficina Mecânica" class="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110" loading="lazy" />
+                        <div class="relative h-64 overflow-hidden bg-black transition-colors duration-500 flex items-center justify-center p-1 pl-12">
+                            <!-- 🔴 AQUI (CARD 2): Coloque o caminho da sua foto no 'src' abaixo (ex: src="imagens/foto-oficina.jpg") -->
+                            <img src="fr_logo.png" alt="FR - Oficina Mecânica" class="max-w-full h-auto max-h-full object-contain transition-transform duration-700 ease-out group-hover:scale-110" loading="lazy" />
                         </div>
                         <div class="p-8 flex flex-col flex-grow relative z-10 bg-white dark:bg-neutral-900 transition-colors duration-500">
-                            <h3 class="text-2xl font-bold font-display text-neutral-900 dark:text-white mb-3 group-hover:text-gold-600 transition-colors duration-300">Sistema de Gestão para Oficina Mecânica</h3>
-                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6 flex-grow transition-colors duration-500">Plataforma web para controle de Ordens de Serviço (OS), estoque e clientes. Elimina a papelada e organiza todo o fluxo de trabalho da oficina.</p>
+                            <h3 class="text-2xl font-bold font-display text-neutral-900 dark:text-white mb-3 group-hover:text-gold-600 transition-colors duration-300">FR Fernando & Rodrigo</h3>
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6 flex-grow transition-colors duration-500">Uma solução completa que digitalizou e organizou processos que antes eram inexistentes. Com controle de estoque rigoroso, histórico detalhado de veículos e gestão de O.S., trouxemos clareza total e o controle absoluto da oficina para as mãos do proprietário.</p>
                             <!-- Key Result -->
                             <div class="mt-auto pt-4 border-t border-gray-100 dark:border-neutral-800/50">
                                 <div class="flex items-center gap-3">
@@ -322,20 +343,20 @@
 
                     <!-- Project 3 -->
                     <div data-project-id="3" class="project-card reveal stagger-2 group relative bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-neutral-800 transition-all duration-500 hover:shadow-2xl hover:shadow-neutral-900/10 dark:hover:shadow-white/5 hover:-translate-y-2 flex flex-col h-full cursor-pointer hover:border-gold-500/50">
-                        <div class="relative h-64 overflow-hidden bg-gray-200 dark:bg-neutral-950 transition-colors duration-500">
-                            <!-- 🔴 AQUI (CARD 3): Coloque o caminho da sua foto no 'src' abaixo -->
-                            <img src="nail_inicio.png" alt="Agenda Inteligente para Nail Designers" class="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110" loading="lazy" />
+                        <div class="relative h-64 overflow-hidden bg-black transition-colors duration-500 flex items-center justify-center p-10">
+                            <!-- 🔴 AQUI (CARD 3): Coloque o caminho da sua foto no 'src' abaixo (ex: src="imagens/foto-landing-page.jpg") -->
+                            <img src="nail_logo.png" alt="Bella Studio" class="max-w-full h-auto max-h-full object-contain transition-transform duration-700 ease-out group-hover:scale-110" loading="lazy" />
                         </div>
                         <div class="p-8 flex flex-col flex-grow relative z-10 bg-white dark:bg-neutral-900 transition-colors duration-500">
-                            <h3 class="text-2xl font-bold font-display text-neutral-900 dark:text-white mb-3 group-hover:text-gold-600 transition-colors duration-300">Landing Page de Alta Conversão</h3>
-                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6 flex-grow transition-colors duration-500">Página de vendas que transforma seguidores do Instagram em clientes reais, com botões e conteúdos focados em fechar negócio.</p>
+                            <h3 class="text-2xl font-bold font-display text-neutral-900 dark:text-white mb-3 group-hover:text-gold-600 transition-colors duration-300">Bella Studio</h3>
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6 flex-grow transition-colors duration-500">Landing Page de alta conversão projetada para transformar o engajamento das redes sociais em agendamentos reais. Uma vitrine digital estratégica que qualifica leads e automatiza a captação de clientes.</p>
                             <!-- Key Result -->
                             <div class="mt-auto pt-4 border-t border-gray-100 dark:border-neutral-800/50">
                                 <div class="flex items-center gap-3">
                                     <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                                     <div>
                                         <span class="text-xs font-bold text-green-500 uppercase tracking-wider">Resultado</span>
-                                        <p class="text-sm text-neutral-800 dark:text-gray-200 font-semibold">Menos tempo respondendo curiosos e mais agendamentos confirmados (com sinal pago).</p>
+                                        <p class="text-sm text-neutral-800 dark:text-gray-200 font-semibold">Fim das interrupções por dúvidas repetitivas e aumento na taxa de conversão com agendamentos pré-pagos.</p>
                                     </div>
                                 </div>
                             </div>
@@ -447,7 +468,7 @@
                             <div class="p-2.5 bg-gold-500/10 rounded-xl text-gold-600">
                                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                             </div>
-                            <h3 class="text-xl font-bold text-neutral-900 dark:text-white">Presença & Autoridade</h3>
+                            <h3 class="text-xl font-bold text-neutral-900 dark:text-white">Portfólio Digital</h3>
                         </div>
                         <p class="text-sm text-gray-600 dark:text-gray-400 mb-8 leading-relaxed md:min-h-[100px]">
                             Desenvolvemos sua identidade digital através de sites e portfólios de alto padrão. Focamos em design e performance para que sua marca transmita confiança.
@@ -461,7 +482,7 @@
                             <li class="flex items-center text-sm text-gray-600 dark:text-gray-400"><svg class="w-5 h-5 text-gold-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Estratégia de SEO Integrada</li>
                             <li class="flex items-center text-sm text-gray-600 dark:text-gray-400"><svg class="w-5 h-5 text-gold-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Hospedagem Rápida e Estável</li>
                         </ul>
-                        <a href="https://wa.me/5517999999999?text=Quero%20melhorar%20minha%20presen%C3%A7a%20digital." target="_blank" class="block w-full py-4 text-center rounded-xl border-2 border-neutral-900 dark:border-white text-neutral-900 dark:text-white font-bold hover:bg-neutral-900 hover:text-white dark:hover:bg-white dark:hover:text-neutral-900 transition-all duration-300">
+                        <a href="https://wa.me/5517991744797?text=Quero%20melhorar%20minha%20presen%C3%A7a%20digital." target="_blank" class="block w-full py-4 text-center rounded-xl border-2 border-neutral-900 dark:border-white text-neutral-900 dark:text-white font-bold hover:bg-neutral-900 hover:text-white dark:hover:bg-white dark:hover:text-neutral-900 transition-all duration-300">
                             Solicitar Orçamento
                         </a>
                     </div>
@@ -472,7 +493,7 @@
                             <div class="p-2.5 bg-gold-500/10 rounded-xl text-gold-500">
                                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                             </div>
-                            <h3 class="text-xl font-bold text-neutral-900 dark:text-white">Eficiência & Escala</h3>
+                            <h3 class="text-xl font-bold text-neutral-900 dark:text-white">Sistemas Web</h3>
                         </div>
                         <p class="text-sm text-gray-600 dark:text-gray-400 mb-8 leading-relaxed md:min-h-[100px]">
                             Inteligência de software desenhada para a sua operação. Automatizamos agendamentos, estoque e fluxos internos. 
@@ -487,7 +508,7 @@
                             <li class="flex items-center text-sm text-gray-600 dark:text-gray-400"><svg class="w-5 h-5 text-gold-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Dashboards de Gestão em Tempo Real</li>
                             <li class="flex items-center text-sm text-gray-600 dark:text-gray-400"><svg class="w-5 h-5 text-gold-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Integração total via API e WhatsApp</li>
                         </ul>
-                        <a href="https://wa.me/5517999999999?text=Preciso%20de%20um%20sistema%20personalizado." target="_blank" class="block w-full py-4 text-center rounded-xl border-2 border-neutral-900 dark:border-white text-neutral-900 dark:text-white font-bold hover:bg-neutral-900 hover:text-white dark:hover:bg-white dark:hover:text-neutral-900 transition-all duration-300">
+                        <a href="https://wa.me/5517991744797?text=Preciso%20de%20um%20sistema%20personalizado." target="_blank" class="block w-full py-4 text-center rounded-xl border-2 border-neutral-900 dark:border-white text-neutral-900 dark:text-white font-bold hover:bg-neutral-900 hover:text-white dark:hover:bg-white dark:hover:text-neutral-900 transition-all duration-300">
                             Solicitar Orçamento
                         </a>
                     </div>
@@ -497,7 +518,7 @@
                 <div class="reveal stagger-4 mt-16 text-center">
                     <p class="text-gray-500 dark:text-gray-400 font-medium italic">
                         Nenhum se adequa às suas necessidades? 
-                        <a href="https://wa.me/5517999999999?text=Ol%C3%A1%2C%20tenho%20uma%20ideia%20espec%C3%ADfica%20de%20projeto." class="text-gold-600 dark:text-gold-500 border-b border-gold-500/30 hover:border-gold-500 transition-all ml-1">
+                        <a href="https://wa.me/5517991744797?text=Ol%C3%A1%2C%20tenho%20uma%20ideia%20espec%C3%ADfica%20de%20projeto." target="_blank" rel="noopener noreferrer" class="text-gold-600 dark:text-gold-500 border-b border-gold-500/30 hover:border-gold-500 transition-all ml-1">
                             Converse conosco para criarmos algo único
                         </a>.
                     </p>
@@ -519,7 +540,7 @@
                         <p class="reveal stagger-2 text-lg text-gray-600 dark:text-gray-400 mb-10 leading-relaxed">
                             Tudo o que você precisa saber antes de fechar negócio para transformar sua presença digital.
                         </p>
-                        <a href="https://wa.me/5517999999999" target="_blank" class="reveal stagger-3 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gold-500 text-white font-bold hover:bg-gold-600 transition-all shadow-lg shadow-gold-500/20 group">
+                        <a href="https://wa.me/5517991744797" target="_blank" class="reveal stagger-3 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gold-500 text-white font-bold hover:bg-gold-600 transition-all shadow-lg shadow-gold-500/20 group">
                             Outra dúvida? Pergunte
                             <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                         </a>
@@ -538,7 +559,7 @@
                             </span>
                         </summary>
                         <div class="faq-answer px-4 text-base text-gray-600 dark:text-gray-400 leading-relaxed border-gray-100 dark:border-neutral-800/50">
-                            O desenvolvimento é um valor único. O domínio e a hospedagem são custos anuais pagos aos provedores, mas nós configuramos <strong>tudo para você</strong> sem complicações.
+                            Sim, nós entregamos tudo <strong>pronto para você</strong>. 
                         </div>
                     </details>
 
@@ -552,7 +573,7 @@
                             </span>
                         </summary>
                         <div class="faq-answer px-4 text-base text-gray-600 dark:text-gray-400 leading-relaxed border-gray-100 dark:border-neutral-800/50">
-                            Uma <strong>Página de Vendas</strong> leva de 5 a 7 dias úteis. Um site de <strong>Presença Digital</strong>, de 15 a 20 dias. Sistemas personalizados têm prazos sob consulta.
+                            O tempo de entrega varia de acordo com o que foi solicitado, pois o prazo é determinado pela complexidade do projeto. Em média, o desenvolvimento leva de 7 a 20 dias úteis para um trabalho bem feito.
                         </div>
                     </details>
 
@@ -566,7 +587,7 @@
                             </span>
                         </summary>
                         <div class="faq-answer px-4 text-base text-gray-600 dark:text-gray-400 leading-relaxed border-gray-100 dark:border-neutral-800/50">
-                            Sim! Entregamos um painel administrativo intuitivo onde você pode alterar textos, fotos e preços <strong>sem precisar de programação</strong>.
+                            Sim! quando necessário, entregamos um painel administrativo intuitivo onde você pode alterar textos, fotos e preços <strong>sem precisar de programação</strong>.
                         </div>
                     </details>
 
@@ -580,7 +601,7 @@
                             </span>
                         </summary>
                         <div class="faq-answer px-4 text-base text-gray-600 dark:text-gray-400 leading-relaxed border-gray-100 dark:border-neutral-800/50">
-                            Sim. Todos os projetos incluem <strong>30 dias de suporte gratuito</strong>. Também oferecemos planos mensais para manutenção e melhorias contínuas.
+                            Sim. Todos os projetos incluem <strong>30 dias de suporte gratuito</strong>. Após esse período, caso algo aconteça, entre em contato conosco para resolvermos da melhor forma posível.
                         </div>
                     </details>
                         </div>
@@ -603,7 +624,7 @@
                     Solicite um orçamento personalizado diretamente pelo WhatsApp.
                 </p>
 
-                <a href="https://wa.me/5517999999999?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20or%C3%A7amento%20para%20um%20projeto." target="_blank" rel="noopener noreferrer" class="reveal stagger-2 inline-block">
+                <a href="https://wa.me/5517991744797?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20or%C3%A7amento%20para%20um%20projeto." target="_blank" rel="noopener noreferrer" class="reveal stagger-2 inline-block">
                     <div class="relative inline-flex items-center justify-center font-display font-bold tracking-wide transition-all duration-300 rounded-lg px-8 py-4 focus:outline-none focus:ring-2 focus:ring-offset-2 transform active:scale-95 overflow-hidden group bg-transparent border-2 border-neutral-800 dark:border-gray-200 text-neutral-800 dark:text-gray-100 hover:bg-[#25D366] hover:border-[#25D366] hover:text-white dark:hover:bg-[#25D366] dark:hover:border-[#25D366] dark:hover:text-white shadow-sm hover:shadow-lg text-lg">
                         <span class="relative flex items-center">
                             <svg class="mr-3 h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.506-.669-.516-.173-.009-.371-.009-.57-.009-.198 0-.52.074-.792.372-.272.297-1.04 1.017-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
@@ -630,7 +651,7 @@
     <div id="project-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/70 backdrop-blur-sm p-4 transition-opacity duration-300 opacity-0">
         <div id="project-modal-content" class="relative max-w-4xl w-full bg-white dark:bg-neutral-900 rounded-lg border border-gray-200 dark:border-neutral-800 shadow-2xl overflow-hidden transition-transform duration-300 scale-95 max-h-[90vh] flex flex-col">
             <!-- Close Button -->
-            <button id="project-modal-close" class="absolute top-3 right-3 z-30 p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-white transition-all" aria-label="Fechar projeto">
+            <button id="project-modal-close" class="absolute top-3 right-3 z-[60] p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-white transition-all" aria-label="Fechar projeto">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
 
@@ -668,9 +689,36 @@
 
                     <!-- Gallery Section -->
                     <div class="mt-4">
-                        <h4 class="text-lg font-bold text-neutral-900 dark:text-white mb-4">Breve demonstração do sistema</h4>
-                        <div id="project-modal-gallery" class="grid grid-cols-1 gap-12">
-                            <!-- Images will be injected here by JS -->
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                            <h4 class="text-lg font-bold text-neutral-900 dark:text-white">Demonstração Visual</h4>
+
+                            <!-- Light/Dark Toggle for Project Photos -->
+                            <div id="project-theme-toggle" class="flex p-1 bg-gray-100 dark:bg-neutral-800 rounded-lg w-fit">
+                                <button id="proj-mode-light" class="p-2 rounded-md transition-all duration-300" aria-label="Ver modo claro">
+                                    <svg id="proj-icon-sun" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                                    </svg>
+                                </button>
+                                <button id="proj-mode-dark" class="p-2 rounded-md transition-all duration-300" aria-label="Ver modo escuro">
+                                    <svg id="proj-icon-moon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Horizontal Slider Container -->
+                        <div class="relative group mb-4">
+                            <button id="proj-gallery-prev" class="absolute left-0 top-1/2 -translate-y-1/2 z-40 p-2 md:p-3 rounded-full bg-white/90 dark:bg-neutral-900/90 shadow-lg text-neutral-900 dark:text-neutral-100 hover:text-gold-600 focus:outline-none transition-all disabled:opacity-0 disabled:pointer-events-none border border-neutral-200/50 dark:border-neutral-800/50 backdrop-blur-sm hover:shadow-xl hover:bg-white dark:hover:bg-neutral-900 hover:border-gold-500/50" aria-label="Anterior">
+                                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                            </button>
+                            <button id="proj-gallery-next" class="absolute right-0 top-1/2 -translate-y-1/2 z-40 p-2 md:p-3 rounded-full bg-white/90 dark:bg-neutral-900/90 shadow-lg text-neutral-900 dark:text-neutral-100 hover:text-gold-600 focus:outline-none transition-all disabled:opacity-0 disabled:pointer-events-none border border-neutral-200/50 dark:border-neutral-800/50 backdrop-blur-sm hover:shadow-xl hover:bg-white dark:hover:bg-neutral-900 hover:border-gold-500/50" aria-label="Próximo">
+                                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </button>
+                            <div id="project-modal-gallery" class="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 scroll-smooth cursor-grab active:cursor-grabbing px-12">
+                                <!-- Images will be injected here by JS -->
+                            </div>
+                            <div class="text-center text-xs text-gray-400">Clique nas fotos para ampliar</div>
                         </div>
                     </div>
                 </div>
@@ -808,6 +856,33 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <!-- Image Viewer Modal -->
+    <div id="image-viewer-modal" class="fixed inset-0 z-[110] hidden items-center justify-center bg-black/95 backdrop-blur-md p-6 md:p-12 transition-opacity duration-300 opacity-0">
+        <div class="relative max-w-5xl w-full flex items-center justify-center group">
+            <!-- Navigation Arrows -->
+            <button id="image-viewer-prev" class="absolute left-[-2rem] md:left-[-4rem] top-1/2 -translate-y-1/2 z-[120] p-3 text-white hover:text-gold-500 transition-colors focus:outline-none" aria-label="Imagem anterior">
+                <svg class="w-8 h-8 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+            <button id="image-viewer-next" class="absolute right-[-2rem] md:right-[-4rem] top-1/2 -translate-y-1/2 z-[120] p-3 text-white hover:text-gold-500 transition-colors focus:outline-none" aria-label="Próxima imagem">
+                <svg class="w-8 h-8 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+
+            <!-- Red Close Button (X) attached to external top-right -->
+            <div class="relative inline-block border-4 border-neutral-200 dark:border-neutral-700 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-white dark:bg-neutral-900 overflow-visible">
+                <button id="image-viewer-close" class="absolute -top-5 -right-5 md:-top-6 md:-right-6 z-[130] p-2.5 rounded-full bg-red-600 text-white shadow-xl focus:outline-none" aria-label="Fechar imagem">
+                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+                
+                <!-- Image Area -->
+                <div class="rounded-lg overflow-hidden flex items-center justify-center">
+                    <img id="image-viewer-img" src="" alt="Imagem expandida do projeto" class="max-w-full max-h-[75vh] object-contain block" loading="lazy">
+                </div>
+            </div>
         </div>
     </div>
 
@@ -961,11 +1036,11 @@
 
             // --- Logic: Testimonials Carousel ---
             const testimonialsData = [
-                { name: "Proprietário", role: "Barbearia", text: "A gente perdia muito tempo respondendo WhatsApp pra agendar. Depois do sistema, os próprios clientes marcam o horário, qual corte vão querer, e em tempo real eu consigo abrir lugar na cadeira para não agendados cortarem.", stars: 5, image: "carlos-mendes.jpeg" },
-                { name: "Villa Real Imóveis", role: "Ana Souza", text: "No mercado de imóveis de luxo, a primeira impressão é tudo. O site que a FLDevs criou transmite exatamente o profissionalismo e a exclusividade que a gente precisava. É rápido, elegante e nossos clientes elogiam.", stars: 5, image: "ana-souza.jpeg" },
+                { name: "Lucas Souza", role: "Barbearia 2M", text: "A gente perdia muito tempo respondendo WhatsApp pra agendar. Depois do sistema, os próprios clientes marcam o horário, qual corte vão querer, e em tempo real eu consigo abrir lugar na cadeira para não agendados cortarem.", stars: 5, image: "carlos-mendes.jpeg" },
+                { name: "Ana Souza", role: "Villa Real Imóveis", text: "No mercado de imóveis de luxo, a primeira impressão é tudo. O site que a FLDevs criou transmite exatamente o profissionalismo e a exclusividade que a gente precisava. É rápido, elegante e nossos clientes elogiam.", stars: 5, image: "ana-souza.jpeg" },
                 { name: "Roberto Ferreira", role: "Construtora Silva", text: "Controlar os custos de várias obras ao mesmo tempo era um desafio. Com o painel que eles criaram, agora eu vejo em tempo real onde cada centavo está indo. Isso facilitou demais nossas decisões e otimizou o lucro.", stars: 5, image: "roberto-ferreira.jpeg" },
-                { name: "Proprietário", role: "Oficina Mecânica", text: "Precisava de uma página pra divulgar nossos serviços e um sisteminha simples para gerenciar os veiculos dos clientes. Eles fizeram rápido e o resultado foi surpreendente. O número de orçamentos que chegam e a organização que entram valeu cada centavo investido, recomendo!", stars: 5, image: "jose-mapra.jpeg" },
-                { name: "Proprietária", role: "Nail Designer", text: "Minha agenda era uma loucura no caderno kkk. Agora, com o sistema de agendamento, minhas clientes marcam um horário, e tanto eu, quanto elas, somos alertadas com um lembrete 10min antes de cada sessão. Acabou a confusão e eu não me perco mais.", stars: 5, image: "nail.jpeg" },
+                { name: "José Mapra", role: "Oficina Mapra", text: "Precisava de uma página pra divulgar nossos serviços e um sisteminha simples para gerenciar os veiculos dos clientes. Eles fizeram rápido e o resultado foi surpreendente. O número de orçamentos que chegam e a organização que entram valeu cada centavo investido, recomendo!", stars: 5, image: "jose-mapra.jpeg" },
+                { name: "Cristina", role: "Nail Designer", text: "Minha agenda era uma loucura no caderno kkk. Agora, com o sistema de agendamento, minhas clientes marcam um horário, e tanto eu, quanto elas, somos alertadas com um lembrete 10min antes de cada sessão. Acabou a confusão e eu não me perco mais.", stars: 5, image: "nail.jpeg" },
                 { name: "Roberta C. Oliveira", role: "LashStudio", text: "Meu trabalho é muito visual, mas no Instagram eu não sentia muita diferença. Até que conheci os meninos da FLDevs, que me apresentaram um modelo de exibição diferente do instagram, funcionou como um portfólio interativo, mostrando a qualidade do meu trabalho consegui me destacar bastante na cidade.", stars: 5, image: "roberta.jpeg" },
            ];
 
@@ -1173,19 +1248,13 @@
 
                 function calculateResult() {
                     const { step1: businessType, step2: needsBooking, step3: sellsProducts, step4: mainGoal } = answers;
-                    let recommendation = 'Presença Digital & Portfólio'; // Default
+                    let recommendation = 'Portfólio Digital'; // Padrão atualizado
 
-                    // Priority 1: Specific feature needs that point to Automation
-                    if ((needsBooking === 'sim' && ['clinica', 'barbearia'].includes(businessType)) || (businessType === 'restaurante' && (sellsProducts === 'sim' || mainGoal === 'vender'))) {
-                        recommendation = 'Sistemas & Automação';
-                    } 
-                    // Priority 2: Goal is pure conversion
-                    else if (mainGoal === 'whatsapp') {
-                        recommendation = 'Página de Vendas';
-                    } 
-                    // Priority 3: Goal is authority or it's a professional office
-                    else if (businessType === 'escritorio' || mainGoal === 'autoridade') {
-                        recommendation = 'Presença Digital & Portfólio';
+                    // Lógica para Sistemas Web (Automação/Agendamento)
+                    if (needsBooking === 'sim' || 
+                        mainGoal === 'agenda' || 
+                        ['clinica', 'barbearia', 'restaurante'].includes(businessType)) {
+                        recommendation = 'Sistemas Web';
                     }
 
                     document.getElementById('quiz-recommendation').textContent = recommendation;
@@ -1215,37 +1284,31 @@
             // --- Logic: Project Modal ---
             const projectData = {
                 '1': {
-                    title: 'Sistema de Agendamento para Barbearia',
-                    challenge: 'O gerenciamento de horários era feito manualmente via WhatsApp, consumindo muito tempo do barbeiro e gerando confusão na agenda, além de muitos "não comparecimentos".',
-                    solution: 'Desenvolvemos uma plataforma web onde os clientes podem ver a disponibilidade em tempo real, agendar e cortar. O sistema envia lembretes automáticos, reduzindo o "no-show" e liberando o profissional.',
-                    gallery: [
-                        // 🔴 AQUI: Lista de imagens da galeria do modal. Troque pelos seus arquivos.
-                        'barber_inicio.png',
-                        'barber_meio.png',
-                        'barber_fim.png'
-                    ]
+                    title: 'DiSteffano Barbearia',
+                    challenge: 'A barbearia perdia faturamento por não conseguir gerir a demanda via WhatsApp durante os atendimentos. O resultado era uma agenda caótica, clientes esquecendo horários e uma imagem profissional prejudicada pela demora nas respostas.',
+                    solution: 'Desenvolvemos uma solução personalizada focada em resolver a perda de clientes no atendimento manual. A nova página de agendamento melhorou drasticamente tanto a qualidade do atendimento quanto a organização interna.',
+                    gallery: {
+                        light: ['Barber_light (1).png', 'Barber_light (2).png', 'Barber_light (3).png', 'Barber_light (4).png'],
+                        dark: ['Barber (1).png', 'Barber (2).png', 'Barber (3).png', 'Barber (4).png']
+                    }
                 },
                 '2': {
-                    title: 'Sistema de Gestão para Oficina Mecânica',
-                    challenge: 'O controle de ordens de serviço, peças e histórico dos veículos era feito em fichas de papel, gerando perda de informações, erros de cálculo e demora no atendimento ao cliente.',
-                    solution: 'Criamos um Painel Administrativo Web (Dashboard) onde é possível abrir O.S., controlar estoque em tempo real e enviar orçamentos aprováveis via WhatsApp. Tudo integrado e sem papel.',
-                    gallery: [
-                        // 🔴 AQUI: Galeria do modal
-                        'oficina_inicio.png',
-                        'oficina_meio.png',
-                        'oficina_fim.png'
-                    ]
+                    title: 'FR Fernando & Rodrigo',
+                    challenge: 'A oficina operava sem processos definidos e dependia de anotações manuais, o que impossibilitava o rastreio de peças no estoque e o acesso ao histórico de manutenção dos veículos, gerando insegurança na gestão e perda de faturamento.',
+                    solution: 'Implementamos um ecossistema digital que estabeleceu processos claros de trabalho. O sistema agora centraliza o histórico completo de cada veículo, automatiza a baixa de estoque e fornece relatórios financeiros precisos, entregando o controle estratégico total do negócio para os proprietários.',
+                    gallery: {
+                        light: ['fr_light (1).png', 'fr_light (2).png', 'fr_light (3).png', 'fr_light (4).png'],
+                        dark: ['fr (1).png', 'fr (2).png', 'fr (3).png', 'fr (4).png']
+                    }
                 },
                 '3': {
-                    title: 'Landing Page de Vendas (Nail Designer)',
-                    challenge: 'A profissional recebia muitos "curiosos" no Direct do Instagram, mas tinha dificuldade em converter esse interesse em vendas reais, perdendo tempo e respondendo dúvidas repetitivas.',
-                    solution: 'Criamos uma Landing Page de alta performance.  Utilizando textos e designs 100% focados em conversão, conseguimos diminuir exorbitantemente essas distrações, resultando em mais vendas e horarios fechados.',
-                    gallery: [
-                        // 🔴 AQUI: Galeria do modal
-                        'nail_inicio.png',
-                        'nail_meio.png',
-                        'nail_fim.png'
-                    ]
+                    title: 'Bella Studio',
+                    challenge: 'O excesso de mensagens de "curiosos" no Direct consumia horas produtivas da profissional. A falta de uma central de informações clara resultava em baixa conversão e muitas desistências por demora no atendimento manual.',
+                    solution: 'Desenvolvemos uma Landing Page com copy estratégica e design focado em autoridade. Implementamos um fluxo que filtra interessados e prioriza clientes decididos, otimizando o tempo da profissional e garantindo faturamento antecipado através de taxas de reserva.',
+                    gallery: {
+                        light: ['nail (1).png', 'nail (2).png', 'nail (3).png', 'nail (4).png'],
+                        dark: ['nail (1).png', 'nail (2).png', 'nail (3).png', 'nail (4).png']
+                    }
                 }
             };
 
@@ -1253,36 +1316,96 @@
             const projectModalContent = document.getElementById('project-modal-content');
             const closeProjectModalBtn = document.getElementById('project-modal-close');
             const projectCards = document.querySelectorAll('.project-card');
+            const btnProjLight = document.getElementById('proj-mode-light');
+            const btnProjDark = document.getElementById('proj-mode-dark');
+            const projIconSun = document.getElementById('proj-icon-sun');
+            const projIconMoon = document.getElementById('proj-icon-moon');
+
+            const projGalleryPrevBtn = document.getElementById('proj-gallery-prev');
+            const projGalleryNextBtn = document.getElementById('proj-gallery-next');
+
+            const projectIds = Object.keys(projectData);
+            
+            let activeProjectId = null;
+            let activeProjectTheme = 'dark'; // Default starting theme for previews
+
+            function updateGalleryNavButtons() {
+                const galleryContainer = document.getElementById('project-modal-gallery');
+                if (projGalleryPrevBtn && projGalleryNextBtn && galleryContainer) {
+                    projGalleryPrevBtn.disabled = galleryContainer.scrollLeft <= 0;
+                    // Allow a small tolerance for floating point issues or partial scrolls
+                    projGalleryNextBtn.disabled = galleryContainer.scrollLeft + galleryContainer.clientWidth >= galleryContainer.scrollWidth - 5;
+                }
+            }
+
+            function updateGallery() {
+                const data = projectData[activeProjectId];
+                const galleryContainer = document.getElementById('project-modal-gallery');
+                const images = data.gallery[activeProjectTheme];
+
+                // Update UI Buttons
+                if (activeProjectTheme === 'light') {
+                    btnProjLight.className = "p-2 rounded-md bg-white dark:bg-neutral-700 shadow-sm transition-all duration-300";
+                    projIconSun.classList.add('text-gold-500'); // Sol Laranjado/Dourado
+                    projIconMoon.classList.remove('text-white');
+                    btnProjDark.className = "p-2 rounded-md text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-all duration-300";
+                } else {
+                    btnProjDark.className = "p-2 rounded-md bg-white dark:bg-neutral-700 shadow-sm transition-all duration-300";
+                    projIconMoon.classList.add('text-white');
+                    projIconSun.classList.remove('text-gold-500');
+                    btnProjLight.className = "p-2 rounded-md text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-all duration-300";
+                }
+
+                galleryContainer.innerHTML = images.map(imgSrc => `
+                    <div class="flex-shrink-0 w-[85%] md:w-[70%] snap-center">
+                        <div class="project-gallery-image-wrapper bg-white dark:bg-neutral-800 p-1.5 rounded-xl shadow-lg border border-gray-200 dark:border-neutral-700/50 cursor-pointer">
+                            <img src="${imgSrc}" alt="Preview do projeto" class="w-full h-72 object-cover rounded-lg" loading="lazy"> <!-- Fixed height h-72 -->
+                        </div>
+                    </div>
+                `).join('');
+                
+                galleryContainer.scrollLeft = 0;
+                updateGalleryNavButtons(); // Update button states after rendering
+
+                // Re-bind image click listeners
+                const wrappers = galleryContainer.querySelectorAll('.project-gallery-image-wrapper');
+                wrappers.forEach((wrapper, index) => {
+                    wrapper.onclick = () => openImageViewer(index, images);
+                });
+            }
 
             function openProjectModal(projectId) {
                 const data = projectData[projectId];
                 if (!data) return;
 
+                activeProjectId = projectId;
+                
+                const themeToggleContainer = document.getElementById('project-theme-toggle');
+                if (projectId === '3') {
+                    themeToggleContainer.classList.add('hidden');
+                    activeProjectTheme = 'light';
+                } else {
+                    themeToggleContainer.classList.remove('hidden');
+                    activeProjectTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+                }
+                // Ensure icons are reset before updateGallery applies new styles
+                projIconSun.classList.remove('text-gold-600');
+                projIconMoon.classList.remove('text-white');
+
                 document.getElementById('project-modal-title').textContent = data.title;
                 document.getElementById('project-modal-challenge').textContent = data.challenge;
                 document.getElementById('project-modal-solution').textContent = data.solution;
 
-                // Populate gallery
-                const galleryContainer = document.getElementById('project-modal-gallery');
-                const gallerySection = galleryContainer.parentElement;
-
-                if (data.gallery && data.gallery.length > 0) {
-                    galleryContainer.innerHTML = data.gallery.map(imgSrc => `
-                        <div class="bg-white dark:bg-neutral-800 p-1.5 rounded-lg shadow-md border border-gray-200 dark:border-neutral-700/50 transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-                            <img src="${imgSrc}" alt="Demonstração do sistema" class="w-full h-full object-cover rounded-sm" loading="lazy">
-                        </div>
-                    `).join('');
-                    gallerySection.style.display = 'block';
-                } else {
-                    gallerySection.style.display = 'none';
-                }
+                updateGallery();
                 
                 // Show Modal
                 projectModal.classList.remove('hidden');
                 projectModal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
                 setTimeout(() => {
                     projectModal.classList.remove('opacity-0');
                     projectModalContent.classList.remove('scale-95');
+                    updateGalleryNavButtons(); // Atualiza as setas após o modal estar visível
                 }, 20);
             }
 
@@ -1292,6 +1415,7 @@
                 setTimeout(() => {
                     projectModal.classList.add('hidden');
                     projectModal.classList.remove('flex');
+                    document.body.style.overflow = '';
                 }, 300);
             }
 
@@ -1302,12 +1426,107 @@
                 });
             });
 
+            btnProjLight.addEventListener('click', () => {
+                activeProjectTheme = 'light';
+                updateGallery();
+            });
+
+            btnProjDark.addEventListener('click', () => {
+                activeProjectTheme = 'dark';
+                updateGallery();
+            });
+
+            projGalleryNextBtn.addEventListener('click', () => {
+                const galleryContainer = document.getElementById('project-modal-gallery');
+                const firstImage = galleryContainer.querySelector('.flex-shrink-0');
+                if (firstImage) {
+                    const scrollAmount = firstImage.offsetWidth + 16; // image width + gap-4
+                    galleryContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                }
+            });
+
+            projGalleryPrevBtn.addEventListener('click', () => {
+                const galleryContainer = document.getElementById('project-modal-gallery');
+                const firstImage = galleryContainer.querySelector('.flex-shrink-0');
+                if (firstImage) {
+                    const scrollAmount = firstImage.offsetWidth + 16; // image width + gap-4
+                    galleryContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                }
+            });
+
+            document.getElementById('project-modal-gallery').addEventListener('scroll', updateGalleryNavButtons);
+
             closeProjectModalBtn.addEventListener('click', closeProjectModal);
             projectModal.addEventListener('click', (e) => {
                 if (e.target === projectModal) {
                     closeProjectModal();
                 }
             });
+
+            // --- Logic: Image Viewer Modal ---
+            const imageViewerModal = document.getElementById('image-viewer-modal');
+            const imageViewerImg = document.getElementById('image-viewer-img');
+            const imageViewerCloseBtn = document.getElementById('image-viewer-close');
+            const imageViewerPrevBtn = document.getElementById('image-viewer-prev');
+            const imageViewerNextBtn = document.getElementById('image-viewer-next');
+
+            let viewerImages = [];
+            let viewerIndex = 0;
+
+            function updateViewerImage() {
+                if (viewerImages.length > 0) {
+                    imageViewerImg.src = viewerImages[viewerIndex];
+                }
+            }
+
+            function openImageViewer(index, images) {
+                viewerImages = images;
+                viewerIndex = index;
+                updateViewerImage();
+                imageViewerModal.classList.remove('hidden');
+                imageViewerModal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+                setTimeout(() => {
+                    imageViewerModal.classList.remove('opacity-0');
+                }, 20);
+            }
+
+            function closeImageViewer() {
+                imageViewerModal.classList.add('opacity-0');
+                setTimeout(() => {
+                    imageViewerModal.classList.add('hidden');
+                    imageViewerModal.classList.remove('flex');
+                    imageViewerImg.src = ''; // Clear image src
+                    viewerImages = [];
+                    // Só remove o lock se o modal de projeto também estiver fechado
+                    if (projectModal.classList.contains('hidden')) {
+                        document.body.style.overflow = '';
+                    }
+                }, 300);
+            }
+
+            imageViewerNextBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                viewerIndex = (viewerIndex + 1) % viewerImages.length;
+                updateViewerImage();
+            });
+
+            imageViewerPrevBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                viewerIndex = (viewerIndex - 1 + viewerImages.length) % viewerImages.length;
+                updateViewerImage();
+            });
+
+            imageViewerCloseBtn.addEventListener('click', closeImageViewer);
+            imageViewerModal.addEventListener('click', (e) => {
+                // Close if clicked on the backdrop
+                if (e.target === imageViewerModal || e.target.id === 'image-viewer-modal-container') {
+                    closeImageViewer();
+                }
+            });
+
+            // Prevent scrolling of the main page when image viewer is open
+            // This is handled by the modal's fixed positioning and backdrop, but good to note.
 
             // --- Logic: Quiz Modal ---
             const quizModal = document.getElementById('quiz-modal');
@@ -1319,6 +1538,7 @@
             function openModal() {
                 quizModal.classList.remove('hidden');
                 quizModal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
                 setTimeout(() => { // Allow display to change before starting transition
                     quizModal.classList.remove('opacity-0');
                     quizModalContent.classList.remove('scale-95');
@@ -1331,6 +1551,7 @@
                 setTimeout(() => { // Hide after transition
                     quizModal.classList.add('hidden');
                     quizModal.classList.remove('flex');
+                    document.body.style.overflow = '';
                 }, 300);
             }
 
