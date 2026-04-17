@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth dark">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -58,7 +58,7 @@
     
     <!-- Critical Theme Logic in Head to Prevent FOUC (Flash of Unstyled Content) -->
     <script>
-        // Site configurado para iniciar sempre em Dark Mode.
+        // Site configurado para iniciar sempre em Light Mode.
     </script>
 
     <style type="text/tailwindcss">
@@ -76,7 +76,7 @@
             background-clip: text;
             background-size: 300% auto;
             will-change: background-position;
-            background-image: linear-gradient(90deg, #4b5563 0%, #9ca3af 25%, #ffffff 50%, #9ca3af 75%, #4b5563 100%);
+            background-image: linear-gradient(90deg, #4B5563 0%, #9CA3AF 25%, #FFFFFF 50%, #9CA3AF 75%, #4B5563 100%);
         }
 
         /* Reveal Animation Classes - Refined for "Metallic/Premium" feel */
@@ -227,8 +227,8 @@
         </div>
 
         <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="hidden fixed inset-x-0 top-[72px] bottom-0 z-40 bg-white/95 dark:bg-neutral-950/95 backdrop-blur-xl p-6 flex flex-col space-y-2 shadow-lg md:hidden opacity-0 -translate-y-10 transition-all duration-500 ease-in-out pointer-events-none">
-            <a href="#projects" class="text-xl font-display font-bold text-gray-900 dark:text-white py-4 px-4 -mx-4 rounded-xl mobile-link transition-all duration-200 active:bg-gray-100 dark:active:bg-neutral-900 active:scale-[0.97] flex items-center justify-between group">Projetos <svg class="w-5 h-5 opacity-0 group-active:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
+            <div id="mobile-menu" class="hidden fixed inset-x-0 top-0 bottom-0 z-40 bg-white dark:bg-neutral-950 p-6 pt-28 flex flex-col space-y-2 shadow-2xl md:hidden opacity-0 -translate-y-10 transition-all duration-500 ease-in-out pointer-events-none">
+                <a href="#projects" class="text-xl font-display font-bold text-gray-900 dark:text-white py-4 px-4 -mx-4 rounded-xl mobile-link transition-all duration-200 hover:bg-gray-100 dark:hover:bg-neutral-900 active:scale-[0.97] flex items-center justify-between group">Projetos <svg class="w-5 h-5 opacity-0 group-active:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
             <a href="#testimonials" class="text-xl font-display font-bold text-gray-900 dark:text-white py-4 px-4 -mx-4 rounded-xl mobile-link transition-all duration-200 active:bg-gray-100 dark:active:bg-neutral-900 active:scale-[0.97] flex items-center justify-between group">Depoimentos <svg class="w-5 h-5 opacity-0 group-active:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
             <a href="#pricing" class="text-xl font-display font-bold text-gray-900 dark:text-white py-4 px-4 -mx-4 rounded-xl mobile-link transition-all duration-200 active:bg-gray-100 dark:active:bg-neutral-900 active:scale-[0.97] flex items-center justify-between group">Planos <svg class="w-5 h-5 opacity-0 group-active:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
             <a href="#faq" class="text-xl font-display font-bold text-gray-900 dark:text-white py-4 px-4 -mx-4 rounded-xl mobile-link transition-all duration-200 active:bg-gray-100 dark:active:bg-neutral-900 active:scale-[0.97] flex items-center justify-between group">FAQ <svg class="w-5 h-5 opacity-0 group-active:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
@@ -247,14 +247,14 @@
                 <div class="w-full text-center space-y-4 md:space-y-6">
                     <!-- Title -->
                     <h1 class="reveal text-5xl md:text-7xl lg:text-8xl font-display font-extrabold leading-tight tracking-tighter transition-colors duration-500">
-                        <span class="chrome-text animate-shine drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]" style="animation-delay: 0s;">
+                        <span class="chrome-text animate-shine drop-shadow-[0_0_20px_rgba(255,255,255,0.15)]" style="animation-delay: 0s;">
                             Soluções Digitais &
                         </span>
                         <br />
-                        <span class="relative chrome-text animate-shine pb-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]" style="animation-delay: 1.5s;">
+                        <span class="relative chrome-text animate-shine pb-2 drop-shadow-[0_0_20px_rgba(255,255,255,0.15)]" style="animation-delay: 1.5s;">
                             Automações
                             <!-- Animated Metallic Energy Line -->
-                            <span class="absolute bottom-1 left-0 w-full h-[1.5px] bg-gradient-to-r from-transparent via-gold-500 via-white via-gold-500 to-transparent bg-[length:300%_auto] animate-shine opacity-100 shadow-[0_0_12px_rgba(234,179,8,0.4)]" style="animation-delay: 1.5s;"></span>
+                            <span class="absolute bottom-1 left-0 w-full h-[1.5px] bg-gradient-to-r from-transparent via-gray-400 via-white via-gray-400 to-transparent bg-[length:300%_auto] animate-shine opacity-100 shadow-[0_0_12px_rgba(255,255,255,0.3)]" style="animation-delay: 1.5s;"></span>
                         </span>
                     </h1>
 
