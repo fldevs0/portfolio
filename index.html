@@ -39,15 +39,16 @@
                     animation: {
                         'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'shimmer': 'shimmer 2.5s infinite',
-                        'shine': 'shine 14s linear infinite',
+                        'shine': 'shine 8s cubic-bezier(0.4, 0, 0.2, 1) infinite',
                     },
                     keyframes: {
                         shimmer: {
                             '100%': { transform: 'translateX(100%)' },
                         },
                         shine: {
-                            '0%': { backgroundPosition: '200% center' },
-                            '100%': { backgroundPosition: '-200% center' },
+                            '0%': { backgroundPosition: '100% center' },
+                            '40%': { backgroundPosition: '0% center' },
+                            '100%': { backgroundPosition: '0% center' },
                         }
                     }
                 }
@@ -60,12 +61,23 @@
         // Site configurado para iniciar sempre em Dark Mode.
     </script>
 
-    <style>
+    <style type="text/tailwindcss">
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #1f2937; }
         ::-webkit-scrollbar-thumb { background: #6b7280; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+        /* Chrome Effect Base */
+        .chrome-text {
+            color: transparent;
+            display: inline-block;
+            -webkit-background-clip: text;
+            background-clip: text;
+            background-size: 300% auto;
+            will-change: background-position;
+            background-image: linear-gradient(90deg, #4b5563 0%, #9ca3af 25%, #ffffff 50%, #9ca3af 75%, #4b5563 100%);
+        }
 
         /* Reveal Animation Classes - Refined for "Metallic/Premium" feel */
         .reveal {
@@ -79,6 +91,11 @@
             opacity: 1;
             filter: blur(0);
             transform: translateY(0);
+        }
+
+        /* Performance Optimization */
+        .is-paused {
+            animation-play-state: paused !important;
         }
 
         /* Stagger Delays */
@@ -210,39 +227,40 @@
         </div>
 
         <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white dark:bg-neutral-950 border-b border-gray-200 dark:border-neutral-800 p-6 flex-col space-y-4 shadow-lg transition-colors duration-500">
-            <a href="#projects" class="text-lg font-medium text-gray-900 dark:text-white py-2 mobile-link transition-colors duration-300">Projetos</a>
-            <a href="#testimonials" class="text-lg font-medium text-gray-900 dark:text-white py-2 mobile-link transition-colors duration-300">Depoimentos</a>
-            <a href="#pricing" class="text-lg font-medium text-gray-900 dark:text-white py-2 mobile-link transition-colors duration-300">Planos</a>
-            <a href="#faq" class="text-lg font-medium text-gray-900 dark:text-white py-2 mobile-link transition-colors duration-300">FAQ</a>
-            <a href="#contact" class="text-lg font-medium text-gray-900 dark:text-white py-2 mobile-link transition-colors duration-300">Contato</a>
+        <div id="mobile-menu" class="hidden fixed inset-x-0 top-[72px] bottom-0 z-40 bg-white/95 dark:bg-neutral-950/95 backdrop-blur-xl p-6 flex flex-col space-y-2 shadow-lg md:hidden opacity-0 -translate-y-10 transition-all duration-500 ease-in-out pointer-events-none">
+            <a href="#projects" class="text-xl font-display font-bold text-gray-900 dark:text-white py-4 px-4 -mx-4 rounded-xl mobile-link transition-all duration-200 active:bg-gray-100 dark:active:bg-neutral-900 active:scale-[0.97] flex items-center justify-between group">Projetos <svg class="w-5 h-5 opacity-0 group-active:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
+            <a href="#testimonials" class="text-xl font-display font-bold text-gray-900 dark:text-white py-4 px-4 -mx-4 rounded-xl mobile-link transition-all duration-200 active:bg-gray-100 dark:active:bg-neutral-900 active:scale-[0.97] flex items-center justify-between group">Depoimentos <svg class="w-5 h-5 opacity-0 group-active:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
+            <a href="#pricing" class="text-xl font-display font-bold text-gray-900 dark:text-white py-4 px-4 -mx-4 rounded-xl mobile-link transition-all duration-200 active:bg-gray-100 dark:active:bg-neutral-900 active:scale-[0.97] flex items-center justify-between group">Planos <svg class="w-5 h-5 opacity-0 group-active:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
+            <a href="#faq" class="text-xl font-display font-bold text-gray-900 dark:text-white py-4 px-4 -mx-4 rounded-xl mobile-link transition-all duration-200 active:bg-gray-100 dark:active:bg-neutral-900 active:scale-[0.97] flex items-center justify-between group">FAQ <svg class="w-5 h-5 opacity-0 group-active:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
+            <a href="#contact" class="text-xl font-display font-bold text-gray-900 dark:text-white py-4 px-4 -mx-4 rounded-xl mobile-link transition-all duration-200 active:bg-gray-100 dark:active:bg-neutral-900 active:scale-[0.97] flex items-center justify-between group">Contato <svg class="w-5 h-5 opacity-0 group-active:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
         </div>
     </nav>
 
     <main>
         <!-- Hero Section -->
-        <div class="relative flex justify-center pt-16 md:pt-20 pb-0 overflow-hidden">
+        <div class="relative flex justify-center pt-16 md:pt-20 pb-0 overflow-hidden bg-white dark:bg-neutral-950">
             <!-- Background FX with Parallax IDs -->
-            <div id="hero-blob-1" class="absolute top-1/4 left-1/4 w-96 h-96 bg-gold-500/10 dark:bg-gold-500/5 rounded-full blur-3xl pointer-events-none animate-pulse-slow mix-blend-screen dark:mix-blend-lighten will-change-transform transition-colors duration-700"></div>
-            <div id="hero-blob-2" class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-neutral-400/10 dark:bg-white/5 rounded-full blur-3xl pointer-events-none will-change-transform transition-colors duration-700"></div>
+            <div id="hero-blob-1" class="absolute top-1/4 -left-20 w-96 h-96 bg-gold-500/10 dark:bg-gold-500/5 rounded-full blur-[120px] pointer-events-none animate-pulse-slow mix-blend-multiply dark:mix-blend-lighten will-change-transform transition-colors duration-700"></div>
+            <div id="hero-blob-2" class="absolute bottom-0 -right-20 w-[500px] h-[500px] bg-neutral-200/20 dark:bg-white/5 rounded-full blur-[120px] pointer-events-none animate-pulse-slow will-change-transform transition-colors duration-700"></div>
 
-            <section class="section-observe py-0 md:pt-0 md:pb-10 px-4 md:px-8 w-full relative z-10 flex flex-col items-center">
+            <section class="section-observe py-0 md:pt-0 md:pb-20 px-4 md:px-8 w-full relative z-10 flex flex-col items-center bg-gradient-to-b from-transparent to-gray-50 dark:to-neutral-900/50">
                 <div class="w-full text-center space-y-4 md:space-y-6">
                     <!-- Title -->
-                    <h1 class="reveal text-5xl md:text-7xl lg:text-8xl font-display font-extrabold leading-tight tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 via-neutral-600 to-neutral-900 dark:from-white dark:via-gray-200 dark:to-white bg-[length:300%_auto] animate-shine drop-shadow-sm transition-colors duration-500">
-                        Soluções Digitais & <br />
-                        <span class="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-neutral-600 via-neutral-900 to-neutral-600 dark:from-gray-100 dark:via-gray-400 dark:to-gray-100 bg-[length:300%_auto] animate-shine pb-2 transition-colors duration-500">
-                            Automações Reais
-                            <svg class="absolute w-full h-3 -bottom-1 left-0 text-gold-500 opacity-80" viewBox="0 0 100 10" preserveAspectRatio="none">
-                                <path d="M0 5 Q 50 6 100 5" stroke="currentColor" stroke-width="2" fill="none" />
-                            </svg>
+                    <h1 class="reveal text-5xl md:text-7xl lg:text-8xl font-display font-extrabold leading-tight tracking-tighter transition-colors duration-500">
+                        <span class="chrome-text animate-shine drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]" style="animation-delay: 0s;">
+                            Soluções Digitais &
+                        </span>
+                        <br />
+                        <span class="relative chrome-text animate-shine pb-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]" style="animation-delay: 1.5s;">
+                            Automações
+                            <!-- Animated Metallic Energy Line -->
+                            <span class="absolute bottom-1 left-0 w-full h-[1.5px] bg-gradient-to-r from-transparent via-gold-500 via-white via-gold-500 to-transparent bg-[length:300%_auto] animate-shine opacity-100 shadow-[0_0_12px_rgba(234,179,8,0.4)]" style="animation-delay: 1.5s;"></span>
                         </span>
                     </h1>
 
                     <!-- Subtitle -->
-                    <p class="reveal stagger-1 text-lg md:text-2xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed font-light transition-colors duration-500">
-                        Transformamos processos manuais em <span class="font-semibold text-neutral-900 dark:text-white transition-colors duration-500">lucro e eficiência</span>. 
-                        Desenvolvimento de alta performance para quem busca <span class="font-semibold text-neutral-900 dark:text-white transition-colors duration-500">resultados.</span>
+                    <p class="reveal stagger-1 text-lg md:text-2xl max-w-2xl mx-auto leading-relaxed font-light text-gray-600 dark:text-gray-400 transition-colors duration-500">
+                        Criamos Landing Pages que <strong class="font-bold text-neutral-900 dark:text-white">vendem</strong> e Sistemas Web que <strong class="font-bold text-neutral-900 dark:text-white">otimizam</strong> sua operação.
                     </p>
 
                     <!-- Buttons -->
@@ -276,8 +294,8 @@
         </div>
 
         <!-- Projects Section -->
-        <section id="projects" class="section-observe py-20 px-4 md:px-8 w-full relative overflow-hidden bg-gray-100/50 dark:bg-neutral-900/30 transition-colors duration-500">
-            <div class="w-full">
+        <section id="projects" class="section-observe py-24 px-4 md:px-8 w-full relative overflow-hidden bg-gray-50 dark:bg-neutral-900/50 transition-colors duration-500">
+            <div class="w-full relative z-10">
                 <div class="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6">
                     <div class="max-w-2xl">
                         <div class="reveal flex items-center gap-2 mb-2">
@@ -291,9 +309,6 @@
                             Oficinas Mecânicas, Barbearias, Prestadores de Serviços, e muito mais...
                         </p>
                     </div>
-                    <a href="folio.html" class="reveal stagger-2 hidden md:flex items-center font-semibold text-neutral-900 dark:text-white hover:text-gold-600 transition-colors duration-300 group">
-                        Ver todos os trabalhos <svg class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </a>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
@@ -367,7 +382,7 @@
         </section>
 
         <!-- Soluções para todos os segmentos (from teste.html trust section, Tailwind-styled) -->
-        <section class="section-observe py-16 px-4 md:px-8 w-full relative bg-gray-50/50 dark:bg-neutral-900/20 transition-colors duration-500 border-t border-gray-200/50 dark:border-neutral-800/50">
+        <section class="section-observe py-20 px-4 md:px-8 w-full relative bg-gradient-to-b from-gray-50 via-white to-gray-50 dark:from-neutral-900/50 dark:via-neutral-950 dark:to-neutral-900/30 transition-colors duration-500 border-y border-gray-200/50 dark:border-neutral-800/50">
             <div class="max-w-4xl mx-auto text-center">
                 <p class="reveal text-xs md:text-sm font-bold uppercase tracking-widest text-gold-600 dark:text-gold-500 mb-6 block transition-colors duration-500">
                     Soluções para todos os segmentos
@@ -387,8 +402,8 @@
         </section>
 
         <!-- Testimonials Section (enhanced aesthetics from teste.html) -->
-        <section id="testimonials" class="section-observe py-20 px-4 md:px-8 w-full relative overflow-hidden bg-gray-50 dark:bg-neutral-900/10 transition-colors duration-500">
-            <div class="w-full">
+        <section id="testimonials" class="section-observe py-24 px-4 md:px-8 w-full relative overflow-hidden bg-gray-50 dark:bg-neutral-900/20 transition-colors duration-500">
+            <div class="w-full relative z-10">
                 <div class="text-center mb-16">
                     <span class="reveal text-xs font-bold uppercase tracking-widest text-gold-600 dark:text-gold-500 mb-2 block transition-colors duration-500">O Que Dizem</span>
                     <h2 class="reveal stagger-1 text-3xl md:text-4xl font-display font-bold text-neutral-900 dark:text-white transition-colors duration-500">
@@ -421,8 +436,8 @@
         </section>
 
         <!-- Pricing Section (New) -->
-        <section id="pricing" class="section-observe py-20 px-4 md:px-8 w-full relative bg-white dark:bg-neutral-950 transition-colors duration-500">
-            <div class="w-full">
+        <section id="pricing" class="section-observe py-24 px-4 md:px-8 w-full relative bg-gradient-to-b from-gray-50 to-white dark:from-neutral-900/20 dark:to-neutral-950 transition-colors duration-500">
+            <div class="w-full relative z-10">
                 <div class="text-center mb-16">
                     <span class="reveal text-xs font-bold uppercase tracking-widest text-gold-600 dark:text-gold-500 mb-2 block">Orçamento Inteligente</span>
                     <h2 class="reveal stagger-1 text-4xl md:text-5xl font-display font-bold text-neutral-900 dark:text-white mb-6">
@@ -464,14 +479,12 @@
                     
                     <!-- Card 1: Portfólio & Autoridade -->
                     <div class="w-full md:w-[380px] flex flex-col bg-white dark:bg-neutral-900 rounded-3xl border border-gray-200 dark:border-neutral-800 p-8 shadow-lg hover:border-gold-500/60 hover:shadow-[0_0_20px_rgba(234,179,8,0.15)] transition-all duration-1000 group">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="p-2.5 bg-gold-500/10 rounded-xl text-gold-600">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                            </div>
-                            <h3 class="text-xl font-bold text-neutral-900 dark:text-white">Portfólio Digital</h3>
+                        <div class="mb-8 text-center">
+                            <h3 class="text-2xl font-display font-extrabold text-neutral-900 dark:text-white uppercase tracking-widest">Portfólio Digital</h3>
+                            <div class="w-12 h-1 bg-gradient-to-r from-gold-400 to-gold-600 mx-auto mt-3 rounded-full shadow-[0_2px_10px_rgba(234,179,8,0.3)]"></div>
                         </div>
                         <p class="text-sm text-gray-600 dark:text-gray-400 mb-8 leading-relaxed md:min-h-[100px]">
-                            Desenvolvemos sua identidade digital através de sites e portfólios de alto padrão. Focamos em design e performance para que sua marca transmita confiança.
+                            Sua vitrine 24h por dia. Construímos sites que não apenas mostram seu trabalho, mas convencem o cliente de que você é a escolha certa. Foco total em passar confiança e fechar vendas.
                         </p>
                         <div class="mb-8 p-4 rounded-xl bg-gray-50 dark:bg-neutral-800/40 border border-gray-100 dark:border-neutral-800">
                             <span class="text-[10px] font-black text-gold-600 dark:text-gold-500 uppercase tracking-[0.2em] block mb-1">Ideal para</span>
@@ -489,15 +502,12 @@
 
                     <!-- Card 2: Sistemas & Automação -->
                     <div class="w-full md:w-[380px] flex flex-col bg-white dark:bg-neutral-900 rounded-3xl border border-gray-200 dark:border-neutral-800 p-8 shadow-lg hover:border-gold-500/60 hover:shadow-[0_0_20px_rgba(234,179,8,0.15)] transition-all duration-1000 group">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="p-2.5 bg-gold-500/10 rounded-xl text-gold-500">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            </div>
-                            <h3 class="text-xl font-bold text-neutral-900 dark:text-white">Sistemas Web</h3>
+                        <div class="mb-8 text-center">
+                            <h3 class="text-2xl font-display font-extrabold text-neutral-900 dark:text-white uppercase tracking-widest">Sistemas Web</h3>
+                            <div class="w-12 h-1 bg-gradient-to-r from-gold-400 to-gold-600 mx-auto mt-3 rounded-full shadow-[0_2px_10px_rgba(234,179,8,0.3)]"></div>
                         </div>
                         <p class="text-sm text-gray-600 dark:text-gray-400 mb-8 leading-relaxed md:min-h-[100px]">
-                            Inteligência de software desenhada para a sua operação. Automatizamos agendamentos, estoque e fluxos internos. 
-                            Transformamos processos complexos em telas intuitivas.
+                            Recupere seu tempo. Desenvolvemos ferramentas sob medida para organizar sua agenda, estoque e processos. Chega de planilhas confusas e mensagens perdidas; deixe o sistema trabalhar para você.
                         </p>
                         <div class="mb-8 p-4 rounded-xl bg-gray-50 dark:bg-neutral-800/40 border border-gray-100 dark:border-neutral-800">
                             <span class="text-[10px] font-black text-gold-600 dark:text-gold-500 uppercase tracking-[0.2em] block mb-1">Ideal para</span>
@@ -528,8 +538,8 @@
         </section>
 
         <!-- FAQ Section (New Suggestion) -->
-        <section id="faq" class="section-observe py-20 px-4 md:px-8 w-full relative bg-gray-50 dark:bg-neutral-900/10 transition-colors duration-500">
-            <div class="max-w-7xl mx-auto">
+        <section id="faq" class="section-observe py-24 px-4 md:px-8 w-full relative bg-white dark:bg-neutral-950 transition-colors duration-500">
+            <div class="max-w-7xl mx-auto relative z-10">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
                     <!-- Intro FAQ -->
                     <div class="lg:col-span-5">
@@ -587,7 +597,7 @@
                             </span>
                         </summary>
                         <div class="faq-answer px-4 text-base text-gray-600 dark:text-gray-400 leading-relaxed border-gray-100 dark:border-neutral-800/50">
-                            Sim! quando necessário, entregamos um painel administrativo intuitivo onde você pode alterar textos, fotos e preços <strong>sem precisar de programação</strong>.
+                            Com certeza! Se você quer autonomia para trocar uma foto ou atualizar um preço, podemos incluir um painel super fácil de usar. <strong>Só não esquece de avisar a gente na hora do orçamento, beleza?</strong> Assim garantimos que o site fique exatamente como você precisa.
                         </div>
                     </details>
 
@@ -601,7 +611,7 @@
                             </span>
                         </summary>
                         <div class="faq-answer px-4 text-base text-gray-600 dark:text-gray-400 leading-relaxed border-gray-100 dark:border-neutral-800/50">
-                            Sim. Todos os projetos incluem <strong>30 dias de suporte gratuito</strong>. Após esse período, caso algo aconteça, entre em contato conosco para resolvermos da melhor forma posível.
+                            Sim. Todos os projetos incluem <strong>30 dias de suporte gratuito</strong>. Após esse período, caso algo aconteça, entre em contato conosco para resolvermos da melhor forma possível.
                         </div>
                     </details>
                         </div>
@@ -611,10 +621,10 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="section-observe py-20 px-4 md:px-8 w-full relative border-t border-gray-200 dark:border-neutral-900 bg-white dark:bg-black overflow-hidden transition-colors duration-500">
+        <section id="contact" class="section-observe py-24 px-4 md:px-8 w-full relative bg-gradient-to-b from-white to-gray-50 dark:from-neutral-950 dark:to-black overflow-hidden transition-colors duration-500 border-t border-gray-100 dark:border-neutral-900">
             <!-- Background FX with Parallax ID -->
-            <div id="contact-bg" class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-gray-50 to-transparent dark:from-neutral-900/50 dark:to-transparent pointer-events-none will-change-transform transition-colors duration-500"></div>
-
+            <div id="contact-bg" class="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_50%,rgba(234,179,8,0.05),transparent)] dark:bg-[radial-gradient(circle_at_70%_50%,rgba(234,179,8,0.03),transparent)] pointer-events-none will-change-transform"></div>
+            
             <div class="w-full relative z-10 text-center">
                 <h2 class="reveal text-4xl md:text-5xl font-display font-bold text-neutral-900 dark:text-white mb-6 transition-colors duration-500">
                     Vamos tirar seu projeto do papel?
@@ -632,17 +642,6 @@
                         </span>
                     </div>
                 </a>
-
-                <div class="reveal stagger-3 mt-12 flex flex-col md:flex-row justify-center gap-8 text-gray-500 dark:text-gray-500">
-                    <div class="flex items-center gap-2 justify-center">
-                       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                       <span>Bebedouro/SP</span>
-                    </div>
-                    <div class="flex items-center gap-2 justify-center">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                        <span>contato.fldevs@gmail.com</span>
-                    </div>
-                </div>
             </div>
         </section>
     </main>
@@ -739,21 +738,55 @@
             </div>
 
             <div class="flex items-center space-x-6">
-                <a href="#" class="text-gray-400 hover:text-neutral-900 dark:hover:text-white transition-colors duration-300">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"></path></svg>
+                <a href="mailto:contato.fldevs@gmail.com" class="transition-transform duration-300 hover:scale-110" aria-label="E-mail">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <defs>
+                            <linearGradient id="gmail-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#4285F4" />
+                                <stop offset="25%" stop-color="#EA4335" />
+                                <stop offset="50%" stop-color="#FBBC04" />
+                                <stop offset="100%" stop-color="#34A853" />
+                            </linearGradient>
+                        </defs>
+                        <g class="[stroke:url(#gmail-gradient)]">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </g>
+                    </svg>
                 </a>
-                <a href="#" class="text-gray-400 hover:text-neutral-900 dark:hover:text-white transition-colors duration-300">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg>
+                <a href="https://www.facebook.com/profile.php?id=61586361357155" target="_blank" rel="noopener noreferrer" class="transition-transform duration-300 hover:scale-110" aria-label="Facebook">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24">
+                        <defs>
+                            <linearGradient id="facebook-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#1877F2" />
+                                <stop offset="100%" stop-color="#005aee" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="24" height="24" rx="5" fill="url(#facebook-gradient)"></rect>
+                        <path fill="white" d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+                    </svg>
                 </a>
-                <a href="#" class="text-gray-400 hover:text-neutral-900 dark:hover:text-white transition-colors duration-300">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                <a href="https://www.instagram.com/fl.devs/" target="_blank" rel="noopener noreferrer" class="transition-transform duration-300 hover:scale-110" aria-label="Instagram">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <defs>
+                            <linearGradient id="insta-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#f9ce34" />
+                                <stop offset="50%" stop-color="#ee2a7b" />
+                                <stop offset="100%" stop-color="#6228d7" />
+                            </linearGradient>
+                        </defs>
+                        <g class="[stroke:url(#insta-gradient)]">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"></rect>
+                            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke-width="2"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2"></line>
+                        </g>
+                    </svg>
                 </a>
             </div>
         </div>
     </footer>
 
     <!-- Back to Top Button -->
-    <button id="back-to-top" class="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-gold-600 text-white shadow-lg hover:bg-gold-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-gold-400 transition-all duration-300 opacity-0 translate-y-4 pointer-events-none" aria-label="Voltar ao topo">
+    <button id="back-to-top" class="fixed bottom-32 right-8 z-50 p-3 rounded-full bg-gold-600 text-white shadow-lg hover:bg-gold-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-gold-400 transition-all duration-300 opacity-0 translate-y-4 pointer-events-none" aria-label="Voltar ao topo">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
     </button>
 
@@ -970,26 +1003,40 @@
             let isMenuOpen = false;
             menuToggle.addEventListener('click', () => {
                 isMenuOpen = !isMenuOpen;
-                if (isMenuOpen) {
-                    mobileMenu.classList.remove('hidden');
-                    mobileMenu.classList.add('flex');
-                    iconMenu.classList.add('hidden');
-                    iconClose.classList.remove('hidden');
-                } else {
-                    mobileMenu.classList.add('hidden');
-                    mobileMenu.classList.remove('flex');
-                    iconMenu.classList.remove('hidden');
-                    iconClose.classList.add('hidden');
-                }
+                toggleMenu(isMenuOpen);
             });
 
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    isMenuOpen = false;
-                    mobileMenu.classList.add('hidden');
-                    mobileMenu.classList.remove('flex');
+            function toggleMenu(open) {
+                if (open) {
+                    mobileMenu.classList.remove('hidden');
+                    // Pequeno timeout para permitir que o navegador registre a remoção do hidden antes da animação
+                    setTimeout(() => {
+                        mobileMenu.classList.remove('opacity-0', '-translate-y-10', 'pointer-events-none');
+                        mobileMenu.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                    }, 10);
+                    
+                    iconMenu.classList.add('hidden');
+                    iconClose.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    mobileMenu.classList.add('opacity-0', '-translate-y-10', 'pointer-events-none');
+                    mobileMenu.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                    
                     iconMenu.classList.remove('hidden');
                     iconClose.classList.add('hidden');
+                    document.body.style.overflow = '';
+
+                    // Espera a animação terminar para colocar o hidden de volta
+                    setTimeout(() => {
+                        if (!isMenuOpen) mobileMenu.classList.add('hidden');
+                    }, 500);
+                }
+            }
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    isMenuOpen = false;
+                    toggleMenu(false);
                 });
             });
 
@@ -1022,11 +1069,14 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('active');
-                        observer.unobserve(entry.target);
+                        entry.target.classList.remove('is-paused');
+                    } else {
+                        // Pausa a animação quando sai da tela para economizar CPU/Bateria
+                        entry.target.classList.add('is-paused');
                     }
                 });
             }, {
-                threshold: 0.1,
+                threshold: 0.05,
                 rootMargin: "0px"
             });
 
@@ -1037,7 +1087,7 @@
             // --- Logic: Testimonials Carousel ---
             const testimonialsData = [
                 { name: "Lucas Souza", role: "Barbearia 2M", text: "A gente perdia muito tempo respondendo WhatsApp pra agendar. Depois do sistema, os próprios clientes marcam o horário, qual corte vão querer, e em tempo real eu consigo abrir lugar na cadeira para não agendados cortarem.", stars: 5, image: "carlos-mendes.jpeg" },
-                { name: "Ana Souza", role: "Villa Real Imóveis", text: "No mercado de imóveis de luxo, a primeira impressão é tudo. O site que a FLDevs criou transmite exatamente o profissionalismo e a exclusividade que a gente precisava. É rápido, elegante e nossos clientes elogiam.", stars: 5, image: "ana-souza.jpeg" },
+                { name: "Ana Souza", role: "Villa Real Imóveis", text: "No mercado de imóveis, a primeira impressão é tudo. O site que a FLDevs criou transmite exatamente o profissionalismo e a exclusividade que a gente precisava. É rápido, elegante e nossos clientes elogiam.", stars: 5, image: "ana-souza.jpeg" },
                 { name: "Roberto Ferreira", role: "Construtora Silva", text: "Controlar os custos de várias obras ao mesmo tempo era um desafio. Com o painel que eles criaram, agora eu vejo em tempo real onde cada centavo está indo. Isso facilitou demais nossas decisões e otimizou o lucro.", stars: 5, image: "roberto-ferreira.jpeg" },
                 { name: "José Mapra", role: "Oficina Mapra", text: "Precisava de uma página pra divulgar nossos serviços e um sisteminha simples para gerenciar os veiculos dos clientes. Eles fizeram rápido e o resultado foi surpreendente. O número de orçamentos que chegam e a organização que entram valeu cada centavo investido, recomendo!", stars: 5, image: "jose-mapra.jpeg" },
                 { name: "Cristina", role: "Nail Designer", text: "Minha agenda era uma loucura no caderno kkk. Agora, com o sistema de agendamento, minhas clientes marcam um horário, e tanto eu, quanto elas, somos alertadas com um lembrete 10min antes de cada sessão. Acabou a confusão e eu não me perco mais.", stars: 5, image: "nail.jpeg" },
@@ -1094,6 +1144,10 @@
                 } else {
                     itemsPerView = 3;
                 }
+                // Garante que o índice atual seja válido para a nova visualização
+                if (currentIndex > testimonialsData.length - itemsPerView) {
+                    currentIndex = Math.max(0, testimonialsData.length - itemsPerView);
+                }
                 updateSlider();
                 renderPagination();
             }
@@ -1105,9 +1159,8 @@
                 // Update dots
                 const dots = document.querySelectorAll('.pagination-dot');
                 dots.forEach((dot, idx) => {
-                    const activeIndex = Math.ceil(currentIndex / itemsPerView);
-                    // For dots, simplistic mapping based on pages
-                    if (idx === Math.ceil(currentIndex/itemsPerView)) { 
+                    const activePageIndex = Math.round(currentIndex / itemsPerView);
+                    if (idx === activePageIndex) { 
                        dot.classList.add('bg-gold-600', 'w-6'); 
                        dot.classList.remove('bg-gray-300', 'dark:bg-neutral-700');
                     } else {
@@ -1198,7 +1251,6 @@
                 const nextBtn = document.getElementById('quiz-next-btn');
                 const backBtn = document.getElementById('quiz-back-btn');
                 const restartBtn = document.getElementById('quiz-restart-btn');
-                const plansBtn = document.getElementById('quiz-plans-btn');
                 const progressBar = document.getElementById('quiz-progress-bar');
                 const stepIndicator = document.getElementById('quiz-step-indicator');
 
@@ -1224,7 +1276,9 @@
 
                     // Update button states
                     backBtn.disabled = currentStep === 0;
-                    nextBtn.disabled = !answers[`step${currentStep + 1}`];
+                    if (currentStep < totalQuestions) {
+                        nextBtn.disabled = !answers[`step${currentStep + 1}`];
+                    }
                     
                     if (currentStep === totalQuestions - 1) {
                         nextBtn.textContent = 'Ver Resultado';
@@ -1566,7 +1620,8 @@
             const backToTopButton = document.getElementById('back-to-top');
             if (backToTopButton) {
                 window.addEventListener('scroll', () => {
-                    if (window.scrollY > 400) {
+                    // Verifica se o usuário chegou ao fim da página (com margem de 50px)
+                    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50) {
                         backToTopButton.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
                     } else {
                         backToTopButton.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
@@ -1578,4 +1633,4 @@
         });
     </script>
 </body>
-</html>
+</html> 
