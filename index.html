@@ -201,6 +201,24 @@
         #project-modal-gallery::-webkit-scrollbar {
             display: none;
         }
+
+        /* Estilização Noturna da Galeria */
+        .night-sky {
+            background: linear-gradient(to bottom, #0f172a, #1e1b4b) !important;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .night-sky::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.15;
+            animation: stars-pulse 4s infinite alternate;
+            pointer-events: none;
+        }
+        @keyframes stars-pulse { from { opacity: 0.1; } to { opacity: 0.3; } }
     </style>
 
     <!-- Structured Data (JSON-LD) para Local Business -->
@@ -699,7 +717,7 @@
             <div class="overflow-y-auto">
                 <!-- Modal Body: Content -->
                 <div class="p-8 md:p-10">
-                    <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
+                    <div class="mb-8">
                         <h2 id="project-modal-title" class="text-3xl md:text-4xl font-display font-bold text-neutral-900 dark:text-white"></h2>
                     </div>
 
@@ -729,22 +747,14 @@
                     </div>
 
                     <!-- Gallery Section -->
-                    <div class="mt-4">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                    <div id="gallery-wrapper" class="mt-4 p-6 md:p-8 rounded-2xl transition-all duration-500 bg-gray-50 dark:bg-neutral-900/50">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                             <h4 class="text-lg font-bold text-neutral-900 dark:text-white">Demonstração Visual</h4>
-
-                            <!-- Light/Dark Toggle for Project Photos -->
-                            <div id="project-theme-toggle" class="flex p-1 bg-gray-100 dark:bg-neutral-800 rounded-lg w-fit">
-                                <button id="proj-mode-light" class="p-2 rounded-md transition-all duration-300" aria-label="Ver modo claro">
-                                    <svg id="proj-icon-sun" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                                    </svg>
-                                </button>
-                                <button id="proj-mode-dark" class="p-2 rounded-md transition-all duration-300" aria-label="Ver modo escuro">
-                                    <svg id="proj-icon-moon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-                                    </svg>
-                                </button>
+                            
+                            <!-- Seletores de Tema do Projeto (Agora na mesma reta do título da galeria) -->
+                            <div id="modal-theme-selector" class="flex items-center bg-gray-200 dark:bg-neutral-800 p-1 rounded-xl border border-gray-300 dark:border-neutral-700 w-fit">
+                                <button id="modal-theme-light" class="px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300">Modo Claro</button>
+                                <button id="modal-theme-dark" class="px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300">Modo Escuro</button>
                             </div>
                         </div>
 
@@ -986,6 +996,10 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
+            // Inicialização de variáveis globais do escopo para evitar ReferenceError (TDZ)
+            let activeProjectId = null;
+            let activeProjectTheme = 'light';
+
             // --- Logic: Date ---
             document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -998,6 +1012,24 @@
             const iconMoon = document.getElementById('icon-moon');
             const iconSunMobile = document.getElementById('icon-sun-mobile');
             const iconMoonMobile = document.getElementById('icon-moon-mobile');
+
+            // Lógica dos Botões de Tema do Modal
+            const modalThemeLight = document.getElementById('modal-theme-light');
+            const modalThemeDark = document.getElementById('modal-theme-dark');
+
+            function updateModalThemeButtons() {
+                if (activeProjectTheme === 'dark') {
+                    modalThemeDark.classList.add('bg-white', 'dark:bg-neutral-700', 'text-neutral-900', 'dark:text-white', 'shadow-sm');
+                    modalThemeDark.classList.remove('text-gray-500');
+                    modalThemeLight.classList.remove('bg-white', 'dark:bg-neutral-700', 'text-neutral-900', 'dark:text-white', 'shadow-sm');
+                    modalThemeLight.classList.add('text-gray-500');
+                } else {
+                    modalThemeLight.classList.add('bg-white', 'text-neutral-900', 'shadow-sm');
+                    modalThemeLight.classList.remove('text-gray-500');
+                    modalThemeDark.classList.remove('bg-white', 'dark:bg-neutral-700', 'text-neutral-900', 'dark:text-white', 'shadow-sm');
+                    modalThemeDark.classList.add('text-gray-500');
+                }
+            }
 
             function applyTheme(isDark) {
                 if (isDark) {
@@ -1043,6 +1075,16 @@
                     isDarkMode = !isDarkMode;
                     applyTheme(isDarkMode);
                 });
+            });
+
+            modalThemeLight.addEventListener('click', () => {
+                activeProjectTheme = 'light';
+                updateGallery();
+            });
+
+            modalThemeDark.addEventListener('click', () => {
+                activeProjectTheme = 'dark';
+                updateGallery();
             });
 
             // --- Logic: Navbar Scroll & Mobile Menu ---
@@ -1451,24 +1493,16 @@
             const projectModalContent = document.getElementById('project-modal-content');
             const closeProjectModalBtn = document.getElementById('project-modal-close');
             const projectCards = document.querySelectorAll('.project-card');
-            const btnProjLight = document.getElementById('proj-mode-light');
-            const btnProjDark = document.getElementById('proj-mode-dark');
-            const projIconSun = document.getElementById('proj-icon-sun');
-            const projIconMoon = document.getElementById('proj-icon-moon');
 
             const projGalleryPrevBtn = document.getElementById('proj-gallery-prev');
             const projGalleryNextBtn = document.getElementById('proj-gallery-next');
 
             const projectIds = Object.keys(projectData);
             
-            let activeProjectId = null;
-            let activeProjectTheme = 'dark'; // Default starting theme for previews
-
             function updateGalleryNavButtons() {
                 const galleryContainer = document.getElementById('project-modal-gallery');
                 if (projGalleryPrevBtn && projGalleryNextBtn && galleryContainer) {
                     projGalleryPrevBtn.disabled = galleryContainer.scrollLeft <= 0;
-                    // Allow a small tolerance for floating point issues or partial scrolls
                     projGalleryNextBtn.disabled = galleryContainer.scrollLeft + galleryContainer.clientWidth >= galleryContainer.scrollWidth - 5;
                 }
             }
@@ -1476,20 +1510,11 @@
             function updateGallery() {
                 const data = projectData[activeProjectId];
                 const galleryContainer = document.getElementById('project-modal-gallery');
+                const galleryWrapper = document.getElementById('gallery-wrapper');
+                
                 const images = data.gallery[activeProjectTheme];
 
-                // Update UI Buttons
-                if (activeProjectTheme === 'light') {
-                    btnProjLight.className = "p-2 rounded-md bg-white dark:bg-neutral-700 shadow-sm transition-all duration-300";
-                    projIconSun.classList.add('text-gold-500'); // Sol Laranjado/Dourado
-                    projIconMoon.classList.remove('text-white');
-                    btnProjDark.className = "p-2 rounded-md text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-all duration-300";
-                } else {
-                    btnProjDark.className = "p-2 rounded-md bg-white dark:bg-neutral-700 shadow-sm transition-all duration-300";
-                    projIconMoon.classList.add('text-white');
-                    projIconSun.classList.remove('text-gold-500');
-                    btnProjLight.className = "p-2 rounded-md text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-all duration-300";
-                }
+                updateModalThemeButtons();
 
                 galleryContainer.innerHTML = images.map(imgSrc => `
                     <div class="flex-shrink-0 w-[85%] md:w-[70%] snap-center">
@@ -1514,18 +1539,16 @@
                 if (!data) return;
 
                 activeProjectId = projectId;
-                
-                const themeToggleContainer = document.getElementById('project-theme-toggle');
+                const themeSelector = document.getElementById('modal-theme-selector');
+
+                // Lógica específica para o projeto 3 (Bella Studio)
                 if (projectId === '3') {
-                    themeToggleContainer.classList.add('hidden');
-                    activeProjectTheme = 'light';
+                    modalThemeDark.classList.add('hidden');
+                    activeProjectTheme = 'light'; 
                 } else {
-                    themeToggleContainer.classList.remove('hidden');
+                    modalThemeDark.classList.remove('hidden');
                     activeProjectTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
                 }
-                // Ensure icons are reset before updateGallery applies new styles
-                projIconSun.classList.remove('text-gold-600');
-                projIconMoon.classList.remove('text-white');
 
                 document.getElementById('project-modal-title').textContent = data.title;
                 document.getElementById('project-modal-challenge').textContent = data.challenge;
@@ -1559,16 +1582,6 @@
                     const projectId = card.getAttribute('data-project-id');
                     openProjectModal(projectId);
                 });
-            });
-
-            btnProjLight.addEventListener('click', () => {
-                activeProjectTheme = 'light';
-                updateGallery();
-            });
-
-            btnProjDark.addEventListener('click', () => {
-                activeProjectTheme = 'dark';
-                updateGallery();
             });
 
             projGalleryNextBtn.addEventListener('click', () => {
